@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="mrs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Constants for robot -->
+	<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
+
+	<xacro:include filename="$(find mrs_description)/urdf/JM/jm.xacro" />
+	<xacro:include filename="$(find mrs_description)/urdf/PCM/pcm.xacro" />
+
+
+	<!-- Used for fixing robot to Gazebo 'base_link' -->
+	<link name="world" />
+	<joint name="fixed" type="fixed">
+		<origin xyz="0 0 0.01" rpy="0 0 0" />
+		<parent link="world" />
+		<child link="base_footprint" />
+	</joint>
+
+	<!-- Fictitious Base Link is a fictitious link(frame) that is on the ground below 
+		base_link origin, --> 
+	<!-- Base Link -->
+	<link name="base_footprint">
+		<inertial>
+			<mass value="1.0" />
+			<origin xyz="0 0 0" />
+			<inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0"
+				izz="0.01" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.01 0.01 0.01" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.01" rpy="0 0 0" />
+			<geometry>
+				<box size="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+		
+	<xacro:JM1 name="JM" prefix="L1" instance="1"  parent="base_footprint" />
+	<xacro:PcModule parent="1_L1_j2_link" prefix="L1" instance="1" />
+	<xacro:PcModule parent="L1_PCmodule" prefix="L2" instance="2" />
+	<xacro:JM2 name="JM1" prefix="L1" instance="2"  parent="L2_PCmodule" reflect="0" shift="0.035" shift2="1"/>
+
+
+	
+	<!-- ros_control plugin -->
+	<gazebo>
+		<plugin name="mrs_ros_control" filename="libgazebo_ros_control.so">
+			<controlPeriod>0.001</controlPeriod>
+			<robotNamespace>/mrs</robotNamespace>
+		</plugin>
+	</gazebo>
+<!--
+	
+	<xacro:JM1 name="JM" prefix="L1" instance="1"  parent="base_footprint"/>
+	<xacro:PcModule parent="1_L1_j2_link" prefix="L1" instance="1" />
+	<xacro:PcModule parent="L1_PCmodule" prefix="L2" instance="1" />
+	<xacro:JM2 name="JM1" prefix="L2" instance="2"  parent="L2_PCmodule"/>
+-->
+	
+</robot>

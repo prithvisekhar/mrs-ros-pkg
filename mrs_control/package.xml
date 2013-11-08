@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <name>mrs_control</name>
+  <description>The mrs_control package</description>
+  
+  <version>0.1.0</version>
+  <maintainer email="prithvisekhar@gmail.com">Prithvi Sekhar Pagala</maintainer>
+  <license>BSD</license>
+  <url type="website">https://bitbucket.org/telerobcar/telerobcar-ros-pkg/wiki</url>
+  <url type="repository">https://bitbucket.org/telerobcar/telerobcar-ros-pkg</url>
+  <author>Prithvi Sekhar Pagala</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+   <build_depend>rosconsole</build_depend> 
+  <build_depend>rospy </build_depend> 
+  <build_depend>roscpp</build_depend> 
+  <build_depend>message_generation</build_depend> 
+  <build_depend>dynamic_reconfigure</build_depend>
+
+  <run_depend>rosconsole</run_depend> 
+  <run_depend>rospy </run_depend> 
+  <run_depend>roscpp</run_depend> 
+  <run_depend>message_runtime</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+
+</package>

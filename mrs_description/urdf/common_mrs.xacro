@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+
+<robot name="mrs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Auxiliar Values -->
+	<property name="pi" value="3.1415926535897931" />
+	<property name="max_effort" value="20" />
+	<property name="max_velocity" value="10" />
+
+	<!-- Links Mass -->
+	<property name="j1_mass" value="0.137" />
+	<property name="j2_mass" value="0.01" />
+	<property name="j3_mass" value="0.027" />
+	<property name="w1_mass" value="0.089" />
+	<property name="pc_mass" value="0.249" />
+
+
+	<!-- Links COG -->
+	<property name="j1_cog" value="-0.024 -0.021 0" />
+	<property name="j2_cog" value="1.068e-4 0 4.22e-4" />
+	<property name="j3_cog" value="-5.121e-4 0.014 -0.012" />
+	<property name="w1_cog" value="-0.003 0 0" />
+	<property name="pc_cog" value="-0.034 0 0" />
+
+	<!-- Links Inertia -->
+	<macro name="j1_inertia">
+		<inertia ixx="1.043e-4" ixy="4.237e-5" ixz="8.843e-7" 
+		iyy="1.259e-5" iyz="-2.329e-8" izz="1.759e-4" />
+	</macro>
+	<macro name="j2_inertia">
+		<inertia 	ixx="1.34e-6" 	ixy="2.119e-11"		ixz="7.365e-11" 
+							iyy="1.326e-6"	iyz="2.329e-12" 
+							izz="2.006e-6" />
+	</macro>
+	<macro name="j3_inertia">
+		<inertia 	ixx="9.335e-6" ixy="1.198e-8" ixz="5.264e-9" 
+							iyy="5.505e-6" iyz="-2.699e-6"
+							izz="6.39e-6" />
+	</macro>
+	<macro name="pc_inertia">
+		<inertia 	ixx="4.35e-4" ixy="-5.575e-21" ixz="4.256e-21" 
+							iyy="4.82e-4" iyz="3.176e-21"
+							izz="1.809e-4" />
+	</macro>
+	<macro name="w1_inertia">
+		<inertia 	ixx="1.036e-4" ixy="0" ixz="0" 
+							iyy="5.359e-5" iyz="0"
+							izz="5.359e-5" />
+	</macro>
+		<!-- Links orientation and origin -->
+	<macro name="j1_ori">
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 0"/>
+	</macro>
+	<macro name="j2_ori">
+		<origin xyz="0.044 0 0" rpy="0 0 0" />
+	</macro>
+	<macro name="j3_ori">
+      <origin xyz="-0.5 0 0" rpy="0 0 ${-pi/2} "/>
+	</macro>
+	<macro name="pc_ori">
+      <origin xyz="0.5 0 0" rpy="0 0 0"/>
+	</macro>
+	<macro name="w1_ori">
+      <origin xyz="0 0 0" rpy="0 0 0 "/>
+	</macro>
+
+
+	<!-- MESH FILES -->
+	<property name="j1_mesh" value="package://mrs_description/meshes/J1.dae" />
+		<!--property name="j1_mesh" value="package://mrs_description/meshes/BASE.dae" /-->
+	<property name="j2_mesh" value="package://mrs_description/meshes/J2.dae" />
+	<property name="j3_mesh" value="package://mrs_description/meshes/J3.dae" />
+	<property name="pc_mesh" value="package://mrs_description/meshes/Pc.dae" />
+	<property name="w1_mesh" value="package://mrs_description/meshes/WR1.dae" />
+
+	<!-- Link's Macro -->
+	<macro name="create_link" params="name color mesh mass cog *inertia instance prefix">
+		<link name="${instance}_${prefix}_${name}">
+			<visual>
+				<!--xacro:insert_block name="ori" /-->
+				<geometry>
+					<mesh filename="${mesh}" />
+				</geometry>
+				<material name="${color}" />
+			</visual>
+			<collision>
+				<!--xacro:insert_block name="ori" /-->
+				<geometry>
+					<mesh filename="${mesh}" />
+				</geometry>
+			</collision>
+			<inertial>
+				<origin xyz="${cog}" rpy="0 0 0" />
+				<mass value="${mass}" />
+				<xacro:insert_block name="inertia" />
+			</inertial>
+		</link>
+	</macro>
+	
+	<macro name="create_link_no_collision" params="name color mesh mass cog *inertia instance prefix">
+		<link name="${instance}_${prefix}_${name}">
+			<visual>
+				<!--xacro:insert_block name="ori" /-->
+				<geometry>
+					<mesh filename="${mesh}" />
+				</geometry>
+				<material name="${color}" />
+			</visual>
+			<inertial>
+				<origin xyz="${cog}" rpy="0 0 0" />
+				<mass value="${mass}" />
+				<xacro:insert_block name="inertia" />
+			</inertial>
+		</link>
+	</macro>
+	<!-- Transmission's Macro -->
+	<macro name="simple_transmission" params="joint">
+		<transmission name="${joint}tran">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="${joint}" />
+			<actuator name="${joint}_motor">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+	</macro>
+
+	<!-- Joints Dynamics -->
+	<property name="j1_damping" value="0" />
+	<property name="j2_damping" value="0" />
+	<property name="j3_damping" value="0" />
+	<property name="w1_damping" value="0" />	
+
+</robot>

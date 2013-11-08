@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot>
+	
+  <macro name="JMG" params="name prefix instance">	
+	<!-- Links -->
+	<gazebo reference="${instance}_${prefix}_j1_link">
+		<material>Gazebo/Grey</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="${instance}_${prefix}_j2_link">
+		<material>Gazebo/Black</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="${instance}_${prefix}_j3_link">
+		<material>Gazebo/FlatBlack</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="${instance}_${prefix}_w1_link">
+		<material>Gazebo/FlatBlack</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+  </macro>
+  
+
+	
+
+</robot>

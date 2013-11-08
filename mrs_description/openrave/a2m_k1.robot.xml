@@ -1,0 +1,18 @@
+<Robot name="mrs_a2m_p_round" file="arm_k1.dae">
+  <Manipulator name="arm">
+    <base>world</base>
+<!--
+    <effector>2_L1_w1_link</effector>
+-->
+
+    <effector>1_L1_rad_pole</effector>
+        <direction>1 0 0</direction>
+    <translation>0 0 0</translation>
+<!--
+    <joints>katana_l_finger_joint katana_r_finger_joint</joints>
+    <closingdirection>-1 -1</closingdirection>
+    <direction>0 0 1</direction>
+    <translation>0 0 0</translation>
+-->
+  </Manipulator>
+</Robot>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot name="power" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <!-- The following included files set up definitions of parts of the robot body -->
+
+  <!-- power base -->
+  <include filename="$(find mrs_description)/urdf/power_base/base.urdf.xacro" />
+  
+  <!-- materials for visualization -->
+  <include filename="$(find mrs_description)/urdf/materials.urdf.xacro" />
+
+  <!-- Now we can start using the macros included above to define the actual power -->
+
+  <!-- The first use of a macro.  This one was defined in base.urdf.xacro above.
+       A macro like this will expand to a set of link and joint definitions, and to additional
+       Gazebo-related extensions (sensor plugins, etc).  The macro takes an argument, name, 
+       that equals "base", and uses it to generate names for its component links and joints 
+       (e.g., base_link).  The included origin block is also an argument to the macro.  By convention, 
+       the origin block defines where the component is w.r.t its parent (in this case the parent 
+       is the world frame). For more, see http://www.ros.org/wiki/xacro -->
+
+  <!-- foot for arm-->
+  <xacro:power_base name="base"/>
+  <xacro:Ball_bearing mass="0.1" instance="1" dia="0.05" x="0.05" y="0.05" z="-0.05" parent="base_link"/>
+  <xacro:Ball_bearing mass="0.1" instance="2" dia="0.05" x="-0.05" y="0.05" z="-0.05" parent="base_link"/>
+  <xacro:Ball_bearing mass="0.1" instance="3" dia="0.05" x="0.05" y="-0.05" z="-0.05" parent="base_link"/>
+  <xacro:Ball_bearing mass="0.1" instance="4" dia="0.05" x="-0.05" y="-0.05" z="-0.05" parent="base_link"/>
+        
+        
+        
+  <gazebo>
+    <plugin name="gazebo_ros_controller_manager" filename="libgazebo_ros_control.so">
+      <robotNamespace>/mrs</robotNamespace>
+    </plugin>
+
+    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometryRate>20.0</odometryRate>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+    </plugin>
+  </gazebo>
+  
+</robot>

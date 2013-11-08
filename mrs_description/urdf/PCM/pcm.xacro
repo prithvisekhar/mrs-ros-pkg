@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<robot name="mrs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Constants for robot -->
+	<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
+	<xacro:include filename="$(find mrs_description)/urdf/PCM/pcm.gazebo.xacro" />
+	<!-- Import Rviz colors -->
+	<xacro:include filename="$(find mrs_description)/urdf/materials.xacro" />
+
+	
+	<xacro:macro name="default_inertial" params="mass I_tensor">
+		<inertial>
+			<mass value="${mass}" />
+<!--
+			Inertia of a cuboid - ml2/6
+-->
+			<inertia ixx="${I_tensor*1.0}" ixy="0.0" ixz="0.0" iyy="${I_tensor*1.0}" iyz="0.0"
+				izz="${I_tensor*1.0}" />
+		</inertial>
+	</xacro:macro>
+
+	<xacro:macro name="PcModule" params="parent prefix instance">
+		<link name="${prefix}_PCmodule">
+			<visual>
+				<geometry>
+					<box size="0.07 0.07 0.07" />
+				</geometry>
+				<material name="Blue">
+				</material>
+			</visual>
+			<collision>
+				<geometry>
+					<box size="0.07 0.07 0.04" />
+				</geometry>
+			</collision>
+			<xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+		</link>
+		<joint name="${instance}_${prefix}_mbase_jointW1" type="fixed">
+			<origin xyz="0 0 ${instance*0.035}" rpy="0 0 0" />
+			<child link="${prefix}_PCmodule" />
+			<parent link="${parent}" />
+		</joint>
+	
+	<!-- Gazebo  -->
+	<xacro:PCMG name="${prefix}_pcm_gazebo" prefix="${prefix}" instance="${instance}" />
+	</xacro:macro>
+		
+	<xacro:macro name="PcModule_Prismatic" params="parent prefix reflect">
+		<link name="${prefix}_PCmodule">
+			<visual>
+				<geometry>
+					<box size="0.07 0.05 0.05" />
+				</geometry>
+				<material name="Orange">
+				</material>
+			</visual>
+			<xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+		</link>
+		<joint name="${prefix}_mbase_jointW1" type="prismatic">
+			<origin xyz="0 0 ${reflect*0.035}" rpy="0 ${-reflect*pi/2} 0" />
+			<child link="${prefix}_PCmodule" />
+			<parent link="${parent}" />
+			<limit lower="0" upper="0.03" effort="${max_effort}"
+			velocity="${max_velocity}" />		
+		</joint>
+	<simple_transmission joint="${prefix}_mbase_jointW1" />
+	<!-- Gazebo  -->
+	<xacro:PCMG name="${prefix}_pcm_gazebo" prefix="${prefix}" instance="${reflect}" />
+	</xacro:macro>
+		
+	<xacro:macro name="PcModule_Prismatic_arm" params="parent prefix reflect shift">
+		<link name="${prefix}_PCmodule">
+			<visual>
+				<geometry>
+					<box size="0.07 0.05 0.05" />
+				</geometry>
+				<material name="Orange">
+				</material>
+			</visual>
+			<xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+		</link>
+		<joint name="${prefix}_mbase_jointW1" type="prismatic">
+			<origin xyz="0 0 ${reflect*shift}" rpy="0 ${-reflect*pi/2} 0" />
+			<child link="${prefix}_PCmodule" />
+			<parent link="${parent}" />
+			<limit lower="0" upper="0.07" effort="${max_effort}"
+			velocity="${max_velocity}" />		
+		</joint>
+	<simple_transmission joint="${prefix}_mbase_jointW1" />
+	<!-- Gazebo  -->
+	<xacro:PCMG name="${prefix}_pcm_gazebo" prefix="${prefix}" instance="${reflect}" />
+	</xacro:macro>	
+	
+	
+	<xacro:macro name="PcModule_Prismatic" params="parent prefix reflect">
+		<link name="${prefix}_PCmodule">
+			<visual>
+				<geometry>
+					<box size="0.07 0.05 0.05" />
+				</geometry>
+				<material name="Orange">
+				</material>
+			</visual>
+			<xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+		</link>
+		<joint name="${prefix}_mbase_jointW1" type="prismatic">
+			<origin xyz="0 0 ${reflect*0.035}" rpy="0 ${-reflect*pi/2} 0" />
+			<child link="${prefix}_PCmodule" />
+			<parent link="${parent}" />
+			<limit lower="0" upper="0.03" effort="${max_effort}"
+			velocity="${max_velocity}" />		
+		</joint>
+	<simple_transmission joint="${prefix}_mbase_jointW1" />
+	<!-- Gazebo  -->
+	<xacro:PCMG name="${prefix}_pcm_gazebo" prefix="${prefix}" instance="${reflect}" />
+	</xacro:macro>
+		
+	<xacro:macro name="PcModule_Prismatic_kinematic" params="parent prefix reflect shift">
+		<link name="${prefix}_PCmodule">
+			<visual>
+				<geometry>
+					<box size="0.14 0.06 0.05" />
+				</geometry>
+				<material name="Blue">
+				</material>
+			</visual>
+			<xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+		</link>
+		<joint name="${prefix}_mbase_jointW1" type="prismatic">
+			<origin xyz="0 0 ${reflect*shift}" rpy="0 ${-reflect*pi/2} 0" />
+			<child link="${prefix}_PCmodule" />
+			<parent link="${parent}" />
+			<limit lower="0" upper="0.07" effort="${max_effort}"
+			velocity="${max_velocity}" />		
+		</joint>
+	<simple_transmission joint="${prefix}_mbase_jointW1" />
+	<!-- Gazebo  -->
+	<xacro:PCMG name="${prefix}_pcm_gazebo" prefix="${prefix}" instance="${reflect}" />
+	</xacro:macro>	
+	
+	
+	
+	<xacro:macro name="PcModule_solid" params="parent prefix reflect">
+		<link name="${prefix}_PCmodule">
+			<visual>
+				<geometry>
+					<box size="0.07 0.05 0.05" />
+				</geometry>
+				<material name="Orange">
+				</material>
+			</visual>
+			<xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+		</link>
+		<joint name="${prefix}_mbase_jointW1" type="fixed">
+			<origin xyz="0 0 ${reflect*0.035}" rpy="0 ${-reflect*pi/2} 0" />
+			<child link="${prefix}_PCmodule" />
+			<parent link="${parent}" />>		
+		</joint>
+	<!-- Gazebo  -->
+	<xacro:PCMG name="${prefix}_pcm_gazebo" prefix="${prefix}" instance="${reflect}" />
+	</xacro:macro>
+</robot>

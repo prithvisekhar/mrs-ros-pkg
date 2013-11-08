@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<robot name="mrs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Constants for robot -->
+	<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
+	<xacro:include filename="$(find mrs_description)/urdf/power_base/ball_bearing.urdf.xacro" />
+	<xacro:include filename="$(find mrs_description)/urdf/JM/jm.xacro" />
+	<xacro:include filename="$(find mrs_description)/urdf/PCM/pcm.xacro" />
+
+
+	<!-- Used for fixing robot to Gazebo 'base_link' -->
+	<link name="world" >
+		<inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="Red"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+	<joint name="fixed" type="fixed">
+		<axis xyz="1 0 0 " />
+		<origin xyz="0 0 0.05" rpy="0 ${-pi/2} 0" />
+		<!-- <origin xyz="0 0 0.1" rpy="0 0 0" /> -->
+		<parent link="world" />
+		<child link="base_footprint" />
+	</joint>
+
+	<!-- Fictitious Base Link is a fictitious link(frame) that is on the ground below 
+		base_link origin, Dummy link--> 
+	
+	<link name="base_footprint">
+			<mass value="1.0" />
+			<visual>
+				<geometry>
+					<box size="0.07 0.07 0.14" />
+				</geometry>
+				<material name="Blue">
+				</material>
+			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.05 0.04" />
+				</geometry>
+			</collision>
+			<xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+	</link>
+	  	<gazebo reference="base_footprint">
+		<material>Gazebo/Blue</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+
+	
+	
+	<xacro:JM3_prismatic name="JM" prefix="W1" instance="1"  parent="W1_PCmodule" reflect="1" shift="0.035"/>
+	<xacro:PcModule_solid parent="base_footprint" prefix="W1" reflect="-1" />
+
+	<xacro:PcModule_solid parent="base_footprint" prefix="W2" reflect="1" />
+	<xacro:JM3_prismatic name="JM1" prefix="W1" instance="2"  parent="W2_PCmodule" reflect="-1" shift="0.035"/>
+  <xacro:Ball_bearing mass="0.1" instance="1" dia="0.01" x="-0.045" y="0.0" z="-0.2" parent="base_footprint"/>
+  <xacro:Ball_bearing mass="0.1" instance="2" dia="0.01" x="-0.045" y="0.0" z="0.2" parent="base_footprint"/>
+<!--
+	<xacro:Ball_bearing mass="0.1" instance="1" dia="0.05" x="-0.035" y="0" z="0.035" parent="base_footprint"/>
+	<xacro:Ball_bearing mass="0.1" instance="2" dia="0.05" x="-0.035" y="0" z="0.070" parent="base_footprint"/>
+-->
+	<!-- ros_control plugin -->
+	<gazebo>
+		<plugin name="mrs_ros_control" filename="libgazebo_ros_control.so">
+			<controlPeriod>0.001</controlPeriod>
+			<robotNamespace>/mrs</robotNamespace>
+		</plugin>
+	
+	  <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometryRate>20.0</odometryRate>
+      <robotBaseFrame>world</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+</robot>

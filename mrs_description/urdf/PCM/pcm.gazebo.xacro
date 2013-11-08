@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot>
+
+  <macro name="PCMG" params="name prefix instance">	
+	<!-- Links -->
+	<gazebo reference="${prefix}_PCmodule">
+		<material>Gazebo/Orange</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+  </macro>
+
+</robot>

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+		<!-- Constants for robot -->
+	<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+  <!-- simplified box collision geometry for base -->
+
+  <property name="mass" value="22.0"/>
+ 
+ <macro name="Ball_bearing" params="mass instance dia x y z parent">
+  <joint name="bearing_joint_${instance}" type="fixed">
+    <origin rpy="0 0 0" xyz="${x} ${y} ${z}"/>
+    <parent link="${parent}"/>
+    <child link="bearing_link1_${instance}"/>
+  </joint>
+  <link name="bearing_link1_${instance}">
+    <inertial>
+      <mass value="${mass}"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="${2/5*mass*dia/2*dia/2}" ixy="0" ixz="0" iyy="${2/5*mass*dia/2*dia/2}" iyz="0" izz="${2/5*mass*dia/2*dia/2}"/>
+    </inertial>
+    
+  </link>
+   <link name="bearing_link2_${instance}">
+      <inertial>
+        <mass value="${mass}"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="${2/5*mass*dia/2*dia/2}" ixy="0" ixz="0" iyy="${2/5*mass*dia/2*dia/2}" iyz="0" izz="${2/5*mass*dia/2*dia/2}"/>
+      </inertial>
+      <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="${dia/2}"/>
+      </geometry>
+      <material name="Orange"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="${dia/2}"/>
+      </geometry>
+      <contact_coefficients> <mu>0.0</mu> </contact_coefficients>
+    </collision>
+    </link>
+      <joint name="bearing_joint2_${instance}" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="bearing_link1_${instance}"/>
+    <child link="bearing_link2_${instance}"/>
+  </joint>
+  
+
+  	<gazebo reference="bearing_link1_${instance}">
+		<material>Gazebo/Black</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="bearing_link2_${instance}">
+		<material>Gazebo/Black</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+
+	</macro>
+	</robot>

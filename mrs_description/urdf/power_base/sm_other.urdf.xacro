@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+		<!-- Constants for robot -->
+	<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+  <!-- simplified box collision geometry for base -->
+
+  <property name="mass" value="22.0"/>
+ 
+ 
+	<xacro:macro name="SMRadprobe" params="parent prefix reflect instance">
+		<joint name="${instance}_${prefix}_SMRadprobe_joint" type="fixed">
+			<parent link="${parent}" />
+			<child link="${instance}_${prefix}_rad_pole" />
+			<origin rpy="0 ${-pi/2} 0" xyz="-0.1 0 0" />
+		</joint>
+		<link name="${instance}_${prefix}_rad_pole">
+			<visual>
+				<geometry>
+					<cylinder length="0.2" radius=".03" />
+				</geometry>
+				<origin rpy="0 0 0 " xyz="0 0 0" />
+				<material name="Gray">
+					<color rgba=".7 .7 .7 1" />
+				</material>
+			</visual>
+		</link>
+		<joint name="${instance}_${prefix}_rad_joint" type="fixed">
+			<axis xyz="0 0 1" />
+			<origin rpy="0 0 0" xyz="0 0 0.1" />
+			<parent link="${instance}_${prefix}_rad_pole" />
+			<child link="${instance}_${prefix}_rad" />
+		</joint>
+		<link name="${instance}_${prefix}_rad">
+			<visual>
+				<origin rpy="0.0 0 0" xyz="0 0 0" />
+				<geometry>
+					<cylinder length="0.05" radius=".05" />
+				</geometry>
+								<material name="Black"/>
+			</visual>
+		</link>
+	<gazebo reference="${instance}_${prefix}_rad_pole">
+		<material>Gazebo/Red</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="${instance}_${prefix}_rad">
+		<material>Gazebo/Black</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	</xacro:macro>
+	
+	
+	<xacro:macro name="SMHand" params="parent prefix reflect instance">
+		<joint name="${instance}_${prefix}_SMHand_joint" type="fixed">
+			<parent link="${parent}" />
+			<child link="${instance}_${prefix}_gripper_pole" />
+			<origin rpy="0 0 1.57075" xyz="0 0 0.2" />
+		</joint>
+		<link name="${instance}_${prefix}_gripper_pole">
+			<visual>
+				<geometry>
+					<cylinder length="0.3" radius=".02" />
+				</geometry>
+				<origin rpy="0 0 0 " xyz="0 0 0" />
+				<material name="Gray">
+					<color rgba=".7 .7 .7 1" />
+				</material>
+			</visual>
+		</link>
+		<joint name="${instance}_${prefix}_left_gripper_joint" type="revolute">
+			<axis xyz="0 0 1" />
+			<limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5" />
+			<origin rpy="0 0 0" xyz="0 0.01 0.2" />
+			<parent link="${instance}_${prefix}_gripper_pole" />
+			<child link="${instance}_${prefix}_left_gripper" />
+		</joint>
+		<link name="${instance}_${prefix}_left_gripper">
+			<visual>
+				<origin rpy="0.0 0 0" xyz="0 0 0" />
+				<geometry>
+					<mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae" />
+				</geometry>
+			</visual>
+		</link>
+		<joint name="${instance}_${prefix}_left_tip_joint" type="fixed">
+			<parent link="${instance}_${prefix}_left_gripper" />
+			<child link="${instance}_${prefix}_left_tip" />
+		</joint>
+		<link name="${instance}_${prefix}_left_tip">
+			<visual>
+				<origin rpy="0.0 0 0" xyz="0.09137 0.00495 0" />
+				<geometry>
+					<mesh
+						filename="package://pr2_description/meshes/gripper_v0/l_finger_tip.dae" />
+				</geometry>
+			</visual>
+		</link>
+		<joint name="${instance}_${prefix}_right_gripper_joint" type="revolute">
+			<axis xyz="0 0 -1" />
+			<limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5" />
+			<origin rpy="0 0 0" xyz="0 -0.01 0.2" />
+			<parent link="${instance}_${prefix}_gripper_pole" />
+			<child link="${instance}_${prefix}_right_gripper" />
+		</joint>
+		<link name="${instance}_${prefix}_right_gripper">
+			<visual>
+				<origin rpy="-3.1415 0 0" xyz="0 0 0" />
+				<geometry>
+					<mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae" />
+				</geometry>
+			</visual>
+		</link>
+		<joint name="${instance}_${prefix}_right_tip_joint" type="fixed">
+			<parent link="${instance}_${prefix}_right_gripper" />
+			<child link="${instance}_${prefix}_right_tip" />
+		</joint>
+		<link name="${instance}_${prefix}_right_tip">
+			<visual>
+				<origin rpy="-3.1415 0 0" xyz="0.09137 0.00495 0" />
+				<geometry>
+					<mesh
+						filename="package://pr2_description/meshes/gripper_v0/l_finger_tip.dae" />
+				</geometry>
+			</visual>
+		</link>
+	<gazebo reference="${instance}_${prefix}_gripper_pole">
+		<material>Gazebo/Grey</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="${instance}_${prefix}_left_gripper">
+		<material>Gazebo/Grey</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="${instance}_${prefix}_left_tip">
+		<material>Gazebo/Grey</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	<gazebo reference="${instance}_${prefix}_right_gripper">
+		<material>Gazebo/Grey</material>
+		<selfCollide>false</selfCollide>
+	</gazebo>
+	</xacro:macro>
+	
+	</robot>

@@ -14,7 +14,7 @@ ROS packages developed by the [Group of Robots and Intelligent Machines](http://
 
 ### Build Status
 
-[![Build Status](https://travis-ci.org/fsuarez6/grips.png?branch=hydro-devel)](https://travis-ci.org/fsuarez6/grips)
+
 
 
 ## Installation
@@ -30,7 +30,7 @@ Go to your ROS working directory. e.g.
 ```
 cd ~/catkin_ws/src
 ``` 
-Use the `wstool` to install the repository
+Use the `wstool` to install the repository [http://wiki.ros.org/wstool] (http://wiki.ros.org/wstool)
 ```
 wstool init .
 wstool merge https://github.com/prithvisekhar/mrs-ros-pkg.git/mrs.rosinstall

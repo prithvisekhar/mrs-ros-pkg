@@ -1,7 +1,26 @@
+bin
+build
 *.py[cod]
+*~
+*.cmake
 
 # C extensions
 *.so
+
+
+*Targets*
+*gen
+*init*
+_*
+catkin*
+gtest*
+devel*
+*IGNORE*
+CMakeFiles
+CMakeCache*
+default_warehouse_mongo_db
+test*
+
 
 # Packages
 *.egg
@@ -34,3 +53,4 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+

@@ -27,7 +27,7 @@ install: # Use this to install any prerequisites or dependencies necessary to ru
   - cd ~/catkin_ws/src
   - wstool init .
   # Download non-debian stuff
-  - wstool merge https://github.com/prithvisekhar/mrs-ros-pkg.git/$TRAVIS_BRANCH/mrs.rosinstall
+  - wstool merge https://raw.github.com/prithvisekhar/mrs-ros-pkg/$TRAVIS_BRANCH/mrs.rosinstall
   - wstool update
   # Delete the grips.rosinstall version of the repo and use the one of the branch we are testing
   - rm -rf mrs-ros-pkg/

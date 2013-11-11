@@ -14,7 +14,7 @@ ROS packages developed by the [Group of Robots and Intelligent Machines](http://
 
 ### Build Status
 
-
+[![Build Status](https://travis-ci.org/prithvisekhar/mrs-ros-pkg.png?branch=master)](https://travis-ci.org/prithvisekhar/mrs-ros-pkg)
 
 
 ## Installation

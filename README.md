@@ -52,7 +52,17 @@ Be sure to always source the appropriate ROS setup file, which for Hydro is done
 ```
 source /opt/ros/hydro/setup.bash
 ``` 
-You might want to add that line to your `~/.bashrc`
+You might want to add that line to your `~/.bashrc` linking your workspace
+
+Add the gazebo model and resource path to .bashrc 
+
+```
+#Export the Models
+export GAZEBO_RESOURCE_PATH=~/catkin_ws/src/mrs-ros-pkg/mrs_gazebo/worlds:$GAZEBO_RESOURCE_PATH
+export GAZEBO_MODEL_PATH=~/catkin_ws/src/mrs-ros-pkg/mrs_gazebo/models:$GAZEBO_MODEL_PATH
+``` 
+
+Note: gazebo 2.0 - /usr/include and ROS - /opt/ros present respectively 
 
 Try any of the `.launch` files in the `mrs_gazebo` package: (e.g. `*.launch`)
 ```

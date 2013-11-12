@@ -1,101 +1,114 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 <xacro:include filename="$(find mrs_description)/urdf/power_base/ball_bearing.urdf.xacro" />
-		<!-- Constants for robot -->
-	<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+		<!-- constants for robot -->
+<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
   <!-- simplified box collision geometry for base -->
-
+<xacro:include filename="$(find 
+mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
   <property name="mass" value="22.0"/>
+  <property name="p_baselen" value=".3" />
+	<property name="p_basewidth" value=".3" />
+	<property name="p_baseheight" value=".1" />
 
-  	<property name="P_baselen" value=".3" />
-	<property name="P_basewidth" value=".3" />
-	<property name="P_baseheight" value=".1" />
-	
   <xacro:macro name="power_base" params="name">
-    <link name="${name}_footprint">
-      <inertial>
-        <mass value="0.1"/>
-        <origin xyz="0 0 ${-P_baseheight/2}" rpy="0 0 0"/>
-        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
-      </inertial>
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.001 0.001 0.001"/>
-        </geometry>
-        <material name="Red"/>
-      </visual>
-      <collision>
-        <origin xyz="0 0 ${-P_baseheight/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.001 0.001 0.001"/>
-        </geometry>
-      </collision>
-    </link>
-
-    <joint name="${name}_footprint_joint" type="fixed">
+  <link name="${name}_footprint">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 ${-p_baseheight/2}" rpy="0 0 0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <child link="${name}_link"/>
-      <parent link="${name}_footprint"/>
-    </joint>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${-p_baseheight/2}" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
 
-    <link name="${name}_link">
-      <inertial>
-        <mass value="${mass}"/>
-        <inertia ixx="${1/12*mass*(P_baselen*P_baselen+P_baseheight*P_baseheight)}" ixy="0" ixz="0" iyy="${1/12*mass*(P_basewidth*P_basewidth+P_baselen*P_baselen)}" iyz="0" izz="${1/12*mass*(P_basewidth*P_basewidth+P_baseheight*P_baseheight)}"/>
-        <origin xyz="0 0 0"/>
-      </inertial>
-		<visual>
-			<geometry>
-				<cylinder radius="${P_basewidth+0.05}" length="${P_baseheight}" />
-			</geometry>
-			<material name="Green">
-			</material>
-		</visual>
-		<collision>
-			<geometry>
-				<cylinder radius="${P_basewidth}" length="${P_baseheight}" />
-			</geometry>
-		</collision>
-    </link>
-			<gazebo reference="${name}_link">
-     			<material>Gazebo/Grey</material>
-    		</gazebo>
-	<joint name="${name}_link_support_joint" type="fixed">
-		<origin xyz="0 0 ${P_baseheight*6/2}" rpy="0 0 0" />
-		<child link="${name}_link_support" />
-		<parent link="${name}_link" />
-	</joint>
-	<link name="${name}_link_support">
+  <joint name="${name}_footprint_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <child link="${name}_link"/>
+    <parent link="${name}_footprint"/>
+  </joint>
 
-		      <visual>
-        <geometry>
-          <box size="${P_baselen} ${P_basewidth} ${P_baseheight*6}" />
-        </geometry>
-        <material name="DarkGrey"/>
-      </visual>
-      <collision>
-        <geometry>
-          <box size="${P_baselen-0.1} ${P_basewidth-0.05} ${P_baseheight*6-0.05}" />
-        </geometry>
-      </collision>
-		<xacro:default_inertial mass="2" />
-	</link>
-			<gazebo reference="${name}_link_support">
-     			<material>Gazebo/Grey</material>
-    		</gazebo> 
+  <link name="${name}_link">
+  <inertial>
+    <mass value="${mass}"/>
+    <inertia ixx="${1/12*mass*(p_baselen*p_baselen+p_baseheight*p_baseheight)}" ixy="0" ixz="0" iyy="${1/12*mass*(p_basewidth*p_basewidth+p_baselen*p_baselen)}" iyz="0" izz="${1/12*mass*(p_basewidth*p_basewidth+p_baseheight*p_baseheight)}"/>
+    <origin xyz="0 0 0"/>
+  </inertial>
+  <visual>
+    <geometry>
+      <cylinder radius="${p_basewidth+0.05}" length="${p_baseheight}" />
+    </geometry>
+    <material name="White">
+    </material>
+  </visual>
+  <collision>
+    <geometry>
+      <cylinder radius="${p_basewidth}" length="${p_baseheight}" />
+    </geometry>
+  </collision>
+  </link>
+
+  <gazebo reference="${name}_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+
+  <joint name="${name}_link_support_joint" type="fixed">
+    <origin xyz="0 0 ${p_baseheight*6/2}" rpy="0 0 0" />
+    <child link="${name}_link_support" />
+    <parent link="${name}_link" />
+  </joint>
+
+  <link name="${name}_link_support">
+    <visual>
+      <geometry>
+        <box size="${p_baselen} ${p_basewidth} ${p_baseheight*6}" />
+      </geometry>
+      <material name="Orange"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${p_baselen-0.1} ${p_basewidth-0.05} ${p_baseheight*6-0.05}" />
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="2" />
+  </link>
+
+  <gazebo reference="${name}_link_support">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
   </xacro:macro>
-  
-  
-  
-  
-  
- 
+
+<xacro:Camera parent="base_link_support" prefix="base" x="0.15" 
+y="0" z="0.27" instance="1" />
+
+<xacro:Camera parent="base_link_support" prefix="base" x="0" 
+y="0.15" z="0.27" instance="2" />
+
+<xacro:Camera parent="base_link_support" prefix="base" x="-0.15" 
+y="0" z="0.27" instance="3" />
+
+<xacro:Camera parent="base_link_support" prefix="base" x="0" 
+y="-0.15" z="0.27" instance="4" />
+
+
+<xacro:Laser parent="base_link_support" prefix="base" x="0" 
+y="0" z="0.31" instance="1" />
+
 <!--
-   <xacro:Ball_bearing mass="0.1" instance="1" dia="0.05" x="0" y="0" z="-0.05" parent="base_link"/>
+   <xacro:ball_bearing mass="0.1" instance="1" dia="0.05" x="0" y="0" z="-0.05" parent="base_link"/>
 -->
-
-
-
 
 </robot>

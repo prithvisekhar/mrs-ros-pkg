@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-# Code borrowed from youbot telop
+# Initial code created by Graylin Trevor Jay (tjay@cs.brown.edu) and published under Creative Commons Attribution license.
+# addition for signal interrupt by Koen Buys
+# From https://github.com/WPI-RAIL/youbot_teleop.git 
 
 
 import roslib
@@ -74,7 +76,7 @@ def vels(speed, turn):
 
 if __name__ == "__main__":
     settings = termios.tcgetattr(sys.stdin)
-    pub = rospy.Publisher('cmd_vel', Twist)
+    pub = rospy.Publisher('/mrs/cmd_vel', Twist)
     rospy.init_node('teleop_twist_keyboard')
     x = 0
     y = 0

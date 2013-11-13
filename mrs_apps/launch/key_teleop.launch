@@ -1,0 +1,14 @@
+<launch>
+	<!-- send robots urdfs to param server -->
+	<param name="robot_description" 
+	 command="$(find xacro)/xacro.py '$(find mrs_description)/robots/power_base.xacro'" />
+
+
+
+  <node name="generic_keyboard_teleop" pkg="mrs_apps" type="mrsBase_keyboard_teleop.py" output="screen"/>
+<!--
+    <remap from="cmd_vel" to="cmd_vel_unsafe" />
+  </node>
+  <node name="cmd_vel_safety" pkg="youbot_common" type="cmd_vel_safety" output="screen"/>
+-->
+</launch>

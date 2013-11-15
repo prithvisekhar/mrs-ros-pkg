@@ -34,17 +34,18 @@ def unpack_message(msg):
   default_pos = np.array([-2,-15,0.5])
   master_pos = np.array([msg.pose.position.x, msg.pose.position.y, msg.pose.position.z])
   # Correction by 20 for origin compensation 
-  current_mag= np.linalg.norm(master_pos) - 15 if (np.linalg.norm(master_pos) > 15 ) else 0
+  cmd_values = np.array([msg.pose.position.x, msg.pose.position.z])
+  current_mag= np.linalg.norm(cmd_values) - 15 if (np.linalg.norm(cmd_values) > 15 ) else 0
   vel_st = Twist()
   if current_mag>0 :
 
     #convert and remap speed values, with deadzone of 15
-    vel_st.linear.y = -msg.pose.position.z/20 if (math.fabs(msg.pose.position.z) > 50 and math.fabs(msg.pose.position.x < 50)) else 0
-    vel_st.linear.x = msg.pose.position.x/20 if (math.fabs(msg.pose.position.x) > 50 and math.fabs(msg.pose.position.z < 50)) else 0
+    vel_st.linear.y = -msg.pose.position.z/20 if (math.fabs(msg.pose.position.z) > 50 and math.fabs(msg.pose.position.x) < 50) else 0
+    vel_st.linear.x = msg.pose.position.x/20 if (math.fabs(msg.pose.position.x) > 50 and math.fabs(msg.pose.position.z) < 50) else 0
     vel_st.linear.z = 0
     vel_st.angular.x = 0
     vel_st.angular.y = 0
-    vel_st.angular.z = msg.pose.position.y/20 if (math.fabs(msg.pose.position.x) > 50 and math.fabs(msg.pose.position.z > 50)) else 0
+    vel_st.angular.z = math.atan2 (-msg.pose.position.z,msg.pose.position.x) if (math.fabs(msg.pose.position.x) > 50 and math.fabs(msg.pose.position.z) > 50) else 0
   pub.publish(vel_st)
   #~ rospy.loginfo("talker")
 

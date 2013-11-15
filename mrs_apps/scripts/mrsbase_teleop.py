@@ -123,7 +123,7 @@ class CommandYouBot(cmd.Cmd):
         # odom = [(pose_x, pose_y), orientation_z]
         self.odom = [(0.0, 0.0), 0.0]
         # intialize ROS node
-        rospy.init_node('youbot_teleop')
+        rospy.init_node('mrsbase_teleop')
         
         # command publishers
    

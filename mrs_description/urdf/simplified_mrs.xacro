@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<robot name="mrs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Constants for robot -->
+  <xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find mrs_description)/urdf/materials.urdf.xacro" />
+
+  <xacro:property name="JMlen" value=".1" />
+  <xacro:property name="JMwidth" value=".4" />
+  <xacro:property name="JMheight" value=".3" />
+
+
+  <xacro:macro name="joint_module" params="parent prefix instance scale rotate">
+<!--
+Mobile robot with 2 or More JM 
+-->
+<!--
+    <xacro:jm_rec_link parent="${parent}" prefix="${prefix}" instance="${instance-1}" scale="${scale}" rotate="0"/>
+    <xacro:jm_sphere_link parent="${prefix}_jm_link_${instance-1}" prefix="${prefix}" instance="${instance}" scale="${scale}" type="revolute"/>
+    <xacro:jm_rec_link parent="${prefix}_jm_link2_${instance}" prefix="${prefix}" instance="${instance}" scale="${scale}" rotate="0" />
+-->
+<!--
+Manipulator - rotate =1 
+-->
+<!--
+    <xacro:jm_rec_link parent="${parent}" prefix="${prefix}" instance="${instance-1}" scale="${scale}" rotate="1"/>
+    <xacro:jm_sphere_link parent="${prefix}_jm_link_${instance-1}" prefix="${prefix}" instance="${instance}" scale="${scale}" type="revolute" />
+    <xacro:jm_rec_link parent="${prefix}_jm_link2_${instance}" prefix="${prefix}" instance="${instance}" scale="${scale}" rotate="0" />
+-->
+
+<!--
+Mobile robot using 1 JM - joint 2 should be made fixed
+-->
+    <xacro:jm_sphere_link parent="${parent}" prefix="${prefix}" instance="${instance-1}" scale="${scale}" type="fixed"/>
+    <xacro:jm_rec_link parent="${prefix}_jm_link2_${instance-1}" prefix="${prefix}" instance="${instance-2}" scale="${scale}" rotate="0"/>
+
+<!--
+    <xacro:simple_transmission joint="${instance}_${prefix}_j1" />
+-->
+    <xacro:jm_rec_link parent="${prefix}_jm_link2_${instance-1}" prefix="${prefix}" instance="${instance}" scale="${scale}" rotate="0" />
+    <xacro:sm_wheel parent="${prefix}_jm_link_${instance}" prefix="${prefix}" instance="${instance}" dia="${JMwidth+0.2}" length="0.1" rotate="1" x="1" />
+    <xacro:sm_wheel parent="${prefix}_jm_link_${instance-2}" prefix="${prefix}" instance="${instance-2}" dia="${JMwidth+0.2}" length="0.1" rotate="1" x="-1" />    
+<!--
+    <xacro:diff_drive ljoint="${prefix}_jm_joint_${instance-2}" rjoint="${prefix}_jm_joint_${instance}" parent="${parent}"  />
+-->
+
+  </xacro:macro>
+  
+  <xacro:macro name="jm_rec_link" params="parent prefix instance scale rotate">
+    <link name="${prefix}_jm_link_${instance}">
+      <visual>
+        <geometry>
+          <box size="${JMlen*scale} ${JMwidth*scale} ${JMheight*scale}" />
+        </geometry>
+        <material name="Grey2">
+        </material>
+      </visual>
+<!--
+      <collision>
+        <geometry>
+          <box size="${JMlen*scale} ${JMwidth*scale} ${JMheight*scale}" />
+        </geometry>
+      </collision>
+-->
+      <xacro:default_inertial mass="1" I_tensor="1"/>
+    </link>
+    <joint name="${prefix}_jm_joint_${instance}" type="continuous">
+      <parent link="${parent}" />
+      <child link="${prefix}_jm_link_${instance}" />
+      <axis xyz="1 0 0"/>
+      <origin xyz="${(instance)*(JMlen+JMwidth)/2} 0 0" rpy="0 ${-rotate*pi/2} 0" />
+    </joint>
+    <gazebo reference = "${prefix}_jm_link_${instance}">
+      <material>Gazebo/Grey</material>
+      <selfCollide>false</selfCollide>
+    </gazebo>
+  </xacro:macro>
+    
+    <xacro:macro name="jm_sphere_link" params="parent prefix instance scale type">
+      <link name="${prefix}_jm_link2_${instance}">
+        <visual>
+          <geometry>
+            <sphere radius="${JMwidth/2*scale}"/>
+          </geometry>
+          <material name="Grey2">
+          </material>
+        </visual>
+<!--
+        <collision>
+          <geometry>
+            <sphere radius="${JMwidth/2*scale}"/>
+          </geometry>
+        </collision>
+-->
+        <xacro:default_inertial mass="1" I_tensor="1"/>
+      </link>
+      <joint name="${prefix}_jm_joint2_${instance}" type="${type}">
+        <parent link="${parent}" />
+        <child link="${prefix}_jm_link2_${instance}" />
+        <origin xyz="${instance*(JMlen+JMwidth)/2} 0 0" rpy="0 0 0" />
+        <axis xyz="0 0 1"/>
+        <limit effort="100" velocity="100" lower="${-pi/2}"
+        upper="${pi/2}" />
+      </joint>
+      <gazebo reference = "${prefix}_jm_link2_${instance}">
+        <material>Gazebo/Grey</material>
+        <selfCollide>false</selfCollide>
+      </gazebo>
+    </xacro:macro>
+    
+    <xacro:macro name="diff_drive" params="ljoint rjoint parent">
+      <gazebo>
+        <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate></updateRate>
+          <leftJoint>${ljoint}</leftJoint>
+          <rightJoint>${rjoint}</rightJoint>
+          <wheelSeparation>0.5380</wheelSeparation>
+          <wheelDiameter>0.2410</wheelDiameter>
+          <torque>20</torque>
+          <commandTopic>cmd_vel</commandTopic>
+          <odometryTopic>odom</odometryTopic>
+          <odometryFrame>odom</odometryFrame>
+          <robotBaseFrame>${parent}</robotBaseFrame>
+        </plugin>
+    </gazebo>
+    </xacro:macro>
+    
+    <xacro:macro name="pcm_cube_link" params="parent prefix instance scale len">
+      <link name="${prefix}_pcm_link_${instance}">
+        <visual>
+          <geometry>
+            <box size="${len*scale} ${len*scale} ${len*scale}" />
+          </geometry>
+          <material name="Blue">
+          </material>
+        </visual>
+<!--
+        <collision>
+          <geometry>
+            <box size="${len*scale} ${len*scale} ${len*scale}" />
+          </geometry>
+        </collision>
+-->
+        <xacro:default_inertial mass="1" I_tensor="1"/>
+      </link>
+      <joint name="${prefix}_pcm_joint_${instance}" type="fixed">
+        <parent link="${parent}" />
+        <child link="${prefix}_pcm_link_${instance}" />
+        <origin xyz="0 0 0.55" rpy="0 0 0" />
+      </joint>
+
+    </xacro:macro>
+    
+
+
+  <xacro:macro name="cuboid_inertial" params="mass len height width">
+    <inertia ixx="${mass*(len*len+height*height)/12}" ixy="0" ixz="0" iyy="${mass*(width*width+len*len)/12}" iyz="0" izz="${(mass*(width*width+height*height)/12}"/>
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertial" params="mass len radius">
+    <inertia ixx="${mass*(len*len+3*radius*radius)/12}" ixy="0" ixz="0" iyy="${mass*(len*len+3*radius*radius)/12}" iyz="0" izz="${(mass*(radius*radius)/2}"/>
+  </xacro:macro>
+    
+  <xacro:macro name="default_inertial" params="mass I_tensor">
+<!--
+      Inertia of solid cuboid - m*l*2/6
+      Inertia of solid sphere - m*r*r*2/5 
+-->
+    <inertial>
+      <mass value="${mass}"/>
+      <inertia ixx="${I_tensor}" ixy="0.0" ixz="0.0" iyy="${I_tensor}" iyz="0.0" izz="${I_tensor}"/>
+    </inertial>
+  </xacro:macro>   
+ 
+
+  <xacro:macro name="sm_wheel" params="parent prefix instance dia length rotate x ">
+    <link name="${prefix}_sm_wheel_link_${instance}">
+      <visual>
+        <geometry>
+          <cylinder radius="${dia/2}" length="${length}" />
+        </geometry>
+          <material name="Black">
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder radius="${dia/2}" length="${length}" />
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="1" I_tensor="1"/>
+    </link>
+
+    <joint name="${prefix}_sm_wheel_joint_${instance}" type="fixed">
+      <parent link="${parent}" />
+      <child link="${prefix}_sm_wheel_link_${instance}" />
+      <origin xyz="${x*((JMlen+length)/2)} 0 0" rpy=" 0 ${rotate*pi/2} 0" />
+    </joint>
+    <gazebo reference = "${prefix}_sm_wheel_link_${instance}">
+      <material>Gazebo/Orange</material>
+      <selfCollide>false</selfCollide>
+    </gazebo>
+    
+  </xacro:macro> 
+  
+</robot>

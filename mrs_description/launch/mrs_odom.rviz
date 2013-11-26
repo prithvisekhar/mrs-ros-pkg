@@ -53,6 +53,11 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
+        1_jm_link2_0.0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         1_pcm_link_1:
           Alpha: 1
           Show Axes: false
@@ -89,6 +94,8 @@ Visualization Manager:
       Enabled: true
       Frame Timeout: 15
       Frames:
+        1_jm_link2_0.0:
+          Value: true
         1_pcm_link_1:
           Value: true
         All Enabled: true
@@ -101,6 +108,8 @@ Visualization Manager:
       Show Names: true
       Tree:
         base_footprint:
+          1_jm_link2_0.0:
+            {}
           1_pcm_link_1:
             {}
       Update Interval: 0
@@ -129,17 +138,17 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 5.01979
+      Distance: 6.65491
       Focal Point:
         X: 0.315895
         Y: -0.38219
         Z: 2.03499
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.615399
+      Pitch: -0.049601
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.53039
+      Yaw: 4.63539
     Saved: ~
 Window Geometry:
   Displays:

@@ -2,7 +2,7 @@
   <!-- send robots urdfs to param server -->
   <param name="robot_description" 
    command="$(find xacro)/xacro.py '$(find mrs_description)/robots/2W1JM.xacro'" />
-<!--/home/prithvi/catkin_ws/src/mrs-ros-pkg/mrs_description/
+<!--
   textfile="$(find mrs_description)/urdf/youbot.urdf" />
 -->
 <!--

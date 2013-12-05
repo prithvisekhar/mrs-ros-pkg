@@ -1,0 +1,8 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: mrs_description
+    relative_path: robots/AJM2_1.urdf
+  SRDF:
+    relative_path: config/mrs.srdf
+  CONFIG:
+    generated_timestamp: 1386259375

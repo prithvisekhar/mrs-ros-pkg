@@ -13,11 +13,6 @@
   
   <xacro:macro name="initialising_frame" params="name child scale prefix">  
   <link name="${name}">
-    <inertial>
-      <mass value="0.1"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
-    </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -40,10 +35,10 @@
   <link name="${name}_dummy"/>
 
   
-  <xacro:pcm_module parent="${name}" prefix="${prefix}" instance="1" scale="${scale}" len="0.3" z="0.15" />
+  <xacro:pcm_module parent="${name}" prefix="${prefix}" instance="1" scale="${scale}" len="0.3" z="0.15" x="0" rotate="0"/>
      
 
-  <xacro:joint_module parent="${name}" prefix="${prefix}" instance="1" scale="${scale}" rotate="0"/>
+  <xacro:joint_module_diff_drive parent="${name}" prefix="${prefix}" instance="1" scale="${scale}" rotate="0"/>
   <xacro:sm_wheel parent="${prefix}_jm_link_1" prefix="${prefix}" instance="1" dia="${JMwidth+0.3}" length="0.2" rotate="1" x="-1" y="0"/>     
   <xacro:sm_wheel parent="${prefix}_jm_link_2" prefix="${prefix}" instance="2" dia="${JMwidth+0.3}" length="0.2" rotate="1" x="1" y="0"/>
  
@@ -57,11 +52,9 @@
   
   <gazebo>
 
-<!--
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/mrs</robotNamespace>
     </plugin>
--->
 
   </gazebo>
 

@@ -1,0 +1,23 @@
+<launch>
+  <!-- send robots urdfs to param server -->
+  <param name="robot_description" 
+   command="$(find xacro)/xacro.py '$(find mrs_description)/robots/JM2W2.xacro'" />
+<!--
+  textfile="$(find mrs_description)/urdf/youbot.urdf" />
+-->
+<!--
+    textfile="$(arg model)" />
+-->
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE" />
+  </node>
+
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <!-- Show in Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find mrs_description)/launch/mrs_odom.rviz"/> 
+
+</launch>

@@ -81,25 +81,25 @@
   <link name="1_pcm_link_1">
     <visual>
       <geometry>
-        <box size="0.35 0.35 0.35"/>
+        <box size="0.3 0.3 0.3"/>
       </geometry>
       <material name="Blue">
           </material>
     </visual>
     <collision>
       <geometry>
-        <box size="0.35 0.35 0.35"/>
+        <box size="0.3 0.3 0.3"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="1"/>
+      <mass value="0.01"/>
       <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
     </inertial>
   </link>
   <joint name="1_pcm_joint_1" type="fixed">
     <parent link="base_footprint"/>
     <child link="1_pcm_link_1"/>
-    <origin rpy="0 0 0" xyz="0 0 0.3"/>
+    <origin rpy="0 0 0" xyz="0 0 0.15"/>
   </joint>
   <gazebo reference="1_pcm_link_1">
     <material>Gazebo/Blue</material>
@@ -190,65 +190,43 @@
     <material>Gazebo/Grey</material>
     <selfCollide>false</selfCollide>
   </gazebo>
-  <transmission name="1_jm_joint_0tran">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="1_jm_joint_0"/>
-    <actuator name="1_jm_joint_0_motor">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="1_jm_joint_1tran">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="1_jm_joint_1"/>
-    <actuator name="1_jm_joint_1_motor">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
   <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
       <alwaysOn>true</alwaysOn>
       <updateRate/>
       <leftJoint>1_jm_joint_1</leftJoint>
       <rightJoint>1_jm_joint_2</rightJoint>
-      <wheelSeparation>0.5380</wheelSeparation>
-      <wheelDiameter>0.2410</wheelDiameter>
+      <wheelSeparation>0.6</wheelSeparation>
+      <wheelDiameter>0.6</wheelDiameter>
       <torque>20</torque>
-      <commandTopic>cmd_vel</commandTopic>
+      <commandTopic>mrs/cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>base_footprint</robotBaseFrame>
     </plugin>
   </gazebo>
-  <gazebo>
-    <plugin filename="libgazebo_ros_control.so" name="mrs_ros_control">
-      <controlPeriod>0.001</controlPeriod>
-      <robotNamespace>/mrs</robotNamespace>
-    </plugin>
-  </gazebo>
   <link name="1_sm_wheel_link_1">
     <visual>
       <geometry>
-        <cylinder length="0.1" radius="0.3"/>
+        <cylinder length="0.2" radius="0.35"/>
       </geometry>
       <material name="Black">
         </material>
     </visual>
     <collision>
       <geometry>
-        <cylinder length="0.1" radius="0.3"/>
+        <cylinder length="0.2" radius="0.35"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
+      <mass value="1"/>
       <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
     </inertial>
   </link>
   <joint name="1_sm_wheel_joint_1" type="fixed">
     <parent link="1_jm_link_1"/>
     <child link="1_sm_wheel_link_1"/>
-    <origin rpy=" 0 1.57079632679 0" xyz="-0.1 0 0"/>
+    <origin rpy=" 0 1.57079632679 0" xyz="-0.15 0 0"/>
   </joint>
   <gazebo reference="1_sm_wheel_link_1">
     <material>Gazebo/White</material>
@@ -257,49 +235,35 @@
   <link name="1_sm_wheel_link_2">
     <visual>
       <geometry>
-        <cylinder length="0.1" radius="0.3"/>
+        <cylinder length="0.2" radius="0.35"/>
       </geometry>
       <material name="Black">
         </material>
     </visual>
     <collision>
       <geometry>
-        <cylinder length="0.1" radius="0.3"/>
+        <cylinder length="0.2" radius="0.35"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1"/>
+      <mass value="1"/>
       <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
     </inertial>
   </link>
   <joint name="1_sm_wheel_joint_2" type="fixed">
     <parent link="1_jm_link_2"/>
     <child link="1_sm_wheel_link_2"/>
-    <origin rpy=" 0 1.57079632679 0" xyz="0.1 0 0"/>
+    <origin rpy=" 0 1.57079632679 0" xyz="0.15 0 0"/>
   </joint>
   <gazebo reference="1_sm_wheel_link_2">
     <material>Gazebo/White</material>
     <selfCollide>false</selfCollide>
   </gazebo>
-  <!-- For 2 Jm mobile robot -->
-  <!--
- <xacro:initialising_frame name="base_footprint" child="1_jm_link_0.0" scale="1" prefix="1"/>
--->
-  <!--
-  
   <gazebo>
-    <plugin name="gazebo_ros_controller_manager" filename="libgazebo_ros_control.so">
+    <!--
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/mrs</robotNamespace>
     </plugin>
-
-    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
-      <commandTopic>/mrs/cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <odometryRate>20.0</odometryRate>
-      <robotBaseFrame>base_footprint</robotBaseFrame>
-    </plugin>
-    
-  </gazebo>
 -->
+  </gazebo>
 </robot>

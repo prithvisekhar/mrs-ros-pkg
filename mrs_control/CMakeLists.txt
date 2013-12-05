@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 2.8.3)
 project(mrs_control)
 
 find_package(catkin REQUIRED COMPONENTS 
-	roscpp
-	rosconsole
-	rospy 
-	message_generation 
-	dynamic_reconfigure
-	)
+  roscpp
+  rosconsole
+  rospy 
+  message_generation 
+  dynamic_reconfigure
+  control_msgs
+  controller_manager
+  )
 
 
 

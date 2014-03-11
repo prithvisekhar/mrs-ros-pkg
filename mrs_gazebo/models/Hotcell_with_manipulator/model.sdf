@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="Hotcell_Manipulator">
+    <static>true</static>
+    
+    <link name="link_hotcell">
+        <!--> Not necessary to declare inertia as the body is static<-->
+      <collision name="collision_hotcell">
+        <pose>0 0 0.05 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://Hotcell/meshes/Hotcell.dae </uri>
+            <scale>5.0 5.0 5.0</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual_hotcell">
+        <pose>0 0 0.05 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://Hotcell/meshes/Hotcell.dae </uri>
+            <scale>5.0 5.0 5.0</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <link name="link_manipulator_1">
+        <!--> Not necessary to declare inertia as the body is static<-->
+
+      <collision name="collision_man1">
+        <pose>-2.26 -0.15 0.725 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://MT200_nuc_manipulator/meshes/Manipulator.dae</uri>
+            <scale>0.50 0.5 0.5</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual_man1">
+        <pose>-2.26 -0.15 0.725 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://MT200_nuc_manipulator/meshes/Manipulator.dae</uri>
+            <scale>0.50 0.5 0.5</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+     <link name="link_manipulator_2">
+        <!--> Not necessary to declare inertia as the body is static<-->
+
+      <collision name="collision_man2">
+        <pose>-2.65 -0.15 0.725 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://MT200_nuc_manipulator/meshes/Manipulator.dae</uri>
+            <scale>0.50 0.5 0.5</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual_man2">
+        <pose>-2.65 -0.15 0.725 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://MT200_nuc_manipulator/meshes/Manipulator.dae</uri>
+            <scale>0.50 0.5 0.5</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>   
+        
+    <link name="manipable_box">
+
+      <collision name="box_coll">
+        <pose>-2.2 -1.05 1.1 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.9 0.60 0.2</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="box_visual">
+        <pose>-2.2 -1.05 1.25 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.9 0.60 0.3</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

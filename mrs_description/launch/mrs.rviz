@@ -7,9 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /RobotModel1
-        - /RobotModel1/Links1
         - /TF1
-        - /TF1/Frames1
       Splitter Ratio: 0.66443
     Tree Height: 565
   - Class: rviz/Selection
@@ -37,7 +35,7 @@ Visualization Manager:
     - Alpha: 0.5
       Cell Size: 1
       Class: rviz/Grid
-      Color: 160; 160; 164
+      Color: 0; 0; 0
       Enabled: true
       Line Style:
         Line Width: 0.03
@@ -67,6 +65,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        1_L1_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         1_L1_w1_link:
           Alpha: 1
           Show Axes: false
@@ -77,7 +80,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        2_L1_j2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         2_L1_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_w1_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -86,12 +99,22 @@ Visualization Manager:
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
-        L1_prismatic_PCmodule:
+        L1_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L2_PCmodule:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         world:
           Alpha: 1
           Show Axes: false
@@ -106,41 +129,57 @@ Visualization Manager:
       Enabled: true
       Frame Timeout: 15
       Frames:
-        /1_L1_j1_link:
+        1_L1_j1_link:
           Value: true
-        /1_L1_j2_link:
+        1_L1_j2_link:
           Value: true
-        /1_L1_w1_link:
+        1_L1_j3_link:
           Value: true
-        /2_L1_j1_link:
+        1_L1_w1_link:
           Value: true
-        /2_L1_j3_link:
+        2_L1_j1_link:
           Value: true
-        /L1_prismatic_PCmodule:
+        2_L1_j2_link:
           Value: true
-        /world:
+        2_L1_j3_link:
+          Value: true
+        2_L1_w1_link:
           Value: true
         All Enabled: false
+        L1_PCmodule:
+          Value: true
+        L2_PCmodule:
+          Value: true
+        base_footprint:
+          Value: true
+        world:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        /world:
-          /1_L1_w1_link:
-            /1_L1_j1_link:
-              /1_L1_j2_link:
-                /L1_prismatic_PCmodule:
-                  /2_L1_j1_link:
-                    /2_L1_j3_link:
-                      {}
+        world:
+          base_footprint:
+            1_L1_w1_link:
+              1_L1_j3_link:
+                1_L1_j1_link:
+                  1_L1_j2_link:
+                    L1_PCmodule:
+                      L2_PCmodule:
+                        2_L1_j2_link:
+                          2_L1_j1_link:
+                            2_L1_j3_link:
+                              2_L1_w1_link:
+                                {}
       Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
-    Fixed Frame: /world
+    Background Color: 122; 122; 122
+    Fixed Frame: world
+    Frame Rate: 30
   Name: root
   Tools:
     - Class: rviz/Interact
@@ -160,11 +199,11 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.18236
+      Distance: 1.44075
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.0161805
+        Y: 0.0859365
+        Z: 0.129593
       Name: Current View
       Near Clip Distance: 0.01
       Pitch: 0.285398
@@ -200,5 +239,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 23
-  Y: 60
+  X: 44
+  Y: 24

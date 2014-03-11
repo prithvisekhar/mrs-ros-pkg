@@ -1,97 +1,100 @@
 <?xml version="1.0"?>
 <robot name="mrs" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-	<!-- Constants for robot -->
-	<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
-	<!-- Import all Gazebo-customization elements, including Gazebo colors -->
+    <!-- Constants for robot -->
+    <xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+    <!-- Import all Gazebo-customization elements, including Gazebo colors -->
 
-	<xacro:include filename="$(find mrs_description)/urdf/JM/jm.xacro" />
-	<xacro:include filename="$(find mrs_description)/urdf/PCM/pcm.xacro" />
-	<xacro:include filename="$(find mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
-	<!-- Used for fixing robot to Gazebo 'base_link' -->
-	<link name="world" />
-	<!-- Working copy -->
+    <xacro:include filename="$(find mrs_description)/urdf/JM/jm.xacro" />
+    <xacro:include filename="$(find mrs_description)/urdf/PCM/pcm.xacro" />
+    <xacro:include filename="$(find mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
+    <!-- Used for fixing robot to Gazebo 'base_link' -->
+    <link name="world" />
+    <!-- Working copy -->
 <!--
-	<joint name="fixed" type="fixed">
-		<origin xyz="0 0 0.01" rpy="0 0 0" />
-		<parent link="world" />
-		<child link="base_footprint" />
-	</joint>
+    <joint name="fixed" type="fixed">
+        <origin xyz="0 0 0.01" rpy="0 0 0" />
+        <parent link="world" />
+        <child link="base_footprint" />
+    </joint>
 -->
 
-	<!-- Fictitious Base Link is a fictitious link(frame) that is on the ground below 
-		base_link origin, --> 
-	<!-- Base Link -->
+    <!-- Fictitious Base Link is a fictitious link(frame) that is on the ground below 
+        base_link origin, --> 
+    <!-- Base Link -->
 <!--
-	<link name="base_footprint">
-		<inertial>
-			<mass value="1.0" />
-			<origin xyz="0 0 0" />
-			<inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0"
-				izz="0.01" />
-		</inertial>
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0" />
-			<geometry>
-				<box size="0.01 0.01 0.01" />
-			</geometry>
-		</visual>
-		<collision>
-			<origin xyz="0 0 0.01" rpy="0 0 0" />
-			<geometry>
-				<box size="0.001 0.001 0.001" />
-			</geometry>
-		</collision>
-	</link>
+    <link name="base_footprint">
+        <inertial>
+            <mass value="1.0" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0"
+                izz="0.01" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.01 0.01 0.01" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.01" rpy="0 0 0" />
+            <geometry>
+                <box size="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
 -->
-	<!-- Initial the xacros calls -->	
+    <!-- Initial the xacros calls -->   
 
-<!--
-	<xacro:JM1 name="JM" prefix="L1" instance="1"  parent="base_footprint" />
-	<xacro:PcModule parent="L1_PCmodule" prefix="L2" instance="2" />
-	<xacro:PcModule parent="1_L1_j2_link" prefix="L1" instance="1" />
-	<xacro:PcModule_Prismatic_arm parent="L1_PCmodule" prefix="L2_prismatic" reflect="1" shift="0.07"/>
-	<xacro:JM2 name="JM1" prefix="L1" instance="2"  parent="L2_prismatic_PCmodule" reflect="1" shift="0.035" shift2="0"/>
-	<xacro:SMRadprobe parent="2_L1_w1_link" prefix="L1" reflect="0" instance="1" /> 
+    <xacro:JM1 name="JM" prefix="L1" instance="1"  parent="world" />
+    <xacro:PcModule parent="L1_PCmodule" prefix="L2" instance="2" />
+    <xacro:PcModule parent="1_L1_j2_link" prefix="L1" instance="1" />
+    <xacro:PcModule_Prismatic_arm parent="L1_PCmodule" prefix="L2_prismatic" reflect="1" shift="0.07"/>
+    <xacro:JM2 name="JM1" prefix="L1" instance="2"  parent="L2_prismatic_PCmodule" reflect="1" shift="0.035" shift2="0"/>
+    <xacro:SMRadprobe parent="2_L1_w1_link" prefix="L1" reflect="0" instance="1" /> 
 
--->
 <!-- To remove fixed links between the arm links new robot configuration -->
-	<xacro:JM1_kinematic name="JM" prefix="L1" instance="1"  parent="world" />
 <!--
+    <xacro:JM1_kinematic name="JM" prefix="L1" instance="1"  parent="world" />
 
-	<xacro:PcModule_Prismatic_kinematic parent="1_L1_j2_link" prefix="L1_prismatic" reflect="1" shift="0.07"/>
-	<xacro:JM2_kinematic name="JM1" prefix="L1" instance="2"  parent="L1_prismatic_PCmodule" reflect="0" shift="0.125" shift2="0"/>
+    <xacro:PcModule_Prismatic_kinematic parent="1_L1_j2_link" prefix="L1_prismatic" reflect="1" shift="0.07"/>
+    <xacro:JM2_kinematic name="JM1" prefix="L1" instance="2"  parent="L1_prismatic_PCmodule" reflect="0" shift="0.125" shift2="0"/>
 -->
-	<xacro:JM2_kinematic name="JM1" prefix="L1" instance="2"  parent="1_L1_j2_link" reflect="0" shift="0.125" shift2="0"/>
-		<joint name="1_L1_SMprobe_joint" type="fixed">
-			<parent link="2_L1_j3_link" />
-			<child link="1_L1_rad_pole" />
-			<origin rpy="${pi/2} 0 0" xyz="0 0.07 0" />
-		</joint>
-		<link name="1_L1_rad_pole">
-			<visual>
-				<geometry>
-					<cylinder length="0.1" radius=".01" />
-				</geometry>
-				<origin rpy="0 0 0 " xyz="0 0 0" />
-				<material name="Gray">
-					<color rgba=".7 .7 .7 1" />
-				</material>
-			</visual>
-			<collision>
-				<geometry>
-					<cylinder length="0.06" radius=".01" />
-				</geometry>
-			</collision>
-		</link>
+<!--
+    <xacro:JM2_kinematic name="JM1" prefix="L1" instance="2"  parent="1_L1_j2_link" reflect="0" shift="0.125" shift2="0"/>
+-->
+        
+<!--
+        <joint name="1_L1_SMprobe_joint" type="fixed">
+            <parent link="2_L1_j3_link" />
+            <child link="1_L1_rad_pole" />
+            <origin rpy="${pi/2} 0 0" xyz="0 0.07 0" />
+        </joint>
+        <link name="1_L1_rad_pole">
+            <visual>
+                <geometry>
+                    <cylinder length="0.1" radius=".01" />
+                </geometry>
+                <origin rpy="0 0 0 " xyz="0 0 0" />
+                <material name="Gray">
+                    <color rgba=".7 .7 .7 1" />
+                </material>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="0.06" radius=".01" />
+                </geometry>
+            </collision>
+        </link>
+-->
 
-	<!-- ros_control plugin -->
-	<gazebo>
-		<plugin name="mrs_ros_control" filename="libgazebo_ros_control.so">
-			<controlPeriod>0.001</controlPeriod>
-			<robotNamespace>/mrs</robotNamespace>
-		</plugin>
-	</gazebo>
+    <!-- ros_control plugin -->
+    <gazebo>
+        <plugin name="mrs_ros_control" filename="libgazebo_ros_control.so">
+            <controlPeriod>0.001</controlPeriod>
+            <robotNamespace>/mrs</robotNamespace>
+        </plugin>
+    </gazebo>
 
-	
+    
 </robot>

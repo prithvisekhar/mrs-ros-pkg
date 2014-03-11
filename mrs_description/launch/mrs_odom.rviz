@@ -5,9 +5,11 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Grid1
         - /RobotModel1
+        - /RobotModel1/Status1
         - /TF1
-      Splitter Ratio: 0.5
+      Splitter Ratio: 0.699605
     Tree Height: 797
   - Class: rviz/Selection
     Name: Selection
@@ -34,7 +36,7 @@ Visualization Manager:
     - Alpha: 0.5
       Cell Size: 1
       Class: rviz/Grid
-      Color: 160; 160; 164
+      Color: 0; 0; 0
       Enabled: true
       Line Style:
         Line Width: 0.03
@@ -54,52 +56,27 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
-        1_jm_link2_1:
+        1_base_camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        1_jm_link2_2:
+        1_base_laser_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        1_jm_link_0.0:
+        2_base_camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        1_jm_link_1:
+        3_base_camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        1_jm_link_1.0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        1_jm_link_2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        1_pcm_link_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        1_pcm_link_2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        1_sm_wheel_link_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        1_sm_wheel_link_2:
+        4_base_camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -114,16 +91,58 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        base_footprint_dummy:
+        base_imu_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
+        base_link_support:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        bearing_link1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        bearing_link1_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        bearing_link1_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        bearing_link1_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        bearing_link2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        bearing_link2_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        bearing_link2_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        bearing_link2_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
-      Visual Enabled: false
+      Visual Enabled: true
     - Class: rviz/Image
       Enabled: false
       Image Topic: /mrs/1_base_camera/image_raw
@@ -136,62 +155,22 @@ Visualization Manager:
       Transport Hint: raw
       Value: false
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
-        1_jm_link2_1:
-          Value: true
-        1_jm_link2_2:
-          Value: true
-        1_jm_link_0.0:
-          Value: true
-        1_jm_link_1:
-          Value: true
-        1_jm_link_1.0:
-          Value: true
-        1_jm_link_2:
-          Value: true
-        1_pcm_link_1:
-          Value: true
-        1_pcm_link_2:
-          Value: true
-        1_sm_wheel_link_1:
-          Value: true
-        1_sm_wheel_link_2:
-          Value: true
         All Enabled: true
-        base_footprint:
-          Value: true
-        base_footprint_dummy:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        base_footprint:
-          1_jm_link_0.0:
-            1_jm_link2_1:
-              1_jm_link_1:
-                1_sm_wheel_link_1:
-                  {}
-          1_jm_link_1.0:
-            1_jm_link2_2:
-              1_jm_link_2:
-                1_sm_wheel_link_2:
-                  {}
-          1_pcm_link_1:
-            {}
-          1_pcm_link_2:
-            {}
-          base_footprint_dummy:
-            {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
+    Background Color: 122; 122; 122
     Fixed Frame: base_footprint
     Frame Rate: 30
   Name: root
@@ -213,11 +192,11 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.71173
+      Distance: 2.182
       Focal Point:
-        X: 0.315895
-        Y: -0.38219
-        Z: 2.03499
+        X: -0.0343408
+        Y: -1.55184
+        Z: 0.0238013
       Name: Current View
       Near Clip Distance: 0.01
       Pitch: 0.545399
@@ -233,7 +212,7 @@ Window Geometry:
   Hide Right Dock: false
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000010f0000035efc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000280000035e000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006101000002a9000000160000000000000000fb0000000a0049006d00610067006500000002ba000000cc0000001600ffffff000000010000010f0000035efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007300000000280000035e000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005000000003efc0100000002fb0000000800540069006d0065010000000000000500000002f600fffffffb0000000800540069006d00650100000000000004500000000000000000000003eb0000035e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001750000035efc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000280000035e000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006101000002a9000000160000000000000000fb0000000a0049006d00610067006500000002ba000000cc0000001600ffffff000000010000010f0000035efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007300000000280000035e000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005000000003efc0100000002fb0000000800540069006d0065010000000000000500000002f600fffffffb0000000800540069006d00650100000000000004500000000000000000000003850000035e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -243,5 +222,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1280
-  X: 0
+  X: 44
   Y: 24

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="MT200">
+    <static>true</static>
+    <link name="link">
+        <!--> Not necessary to declare inertia as the body is static<-->
+<!--
+      <inertial>
+        <mass>5513.1</mass>
+        <inertia>
+            <ixx>2175</ixx>
+            <ixy>-5.8</ixy>
+            <ixz>-2.4</ixz>
+            <iyy>1294</iyy>
+            <iyz>-2.16</iyz>
+            <izz>1471</izz>
+        </inertia>
+      </inertial>
+-->
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://MT200_nuc_manipulator/meshes/Manipulator.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://MT200_nuc_manipulator/meshes/Manipulator.dae</uri>
+            <scale>0.50 0.5 0.5</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

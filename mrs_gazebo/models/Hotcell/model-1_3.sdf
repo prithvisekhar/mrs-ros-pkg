@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<sdf version="1.3">
+  <model name="Hotcell">
+    <static>true</static>
+    <link name="link">
+        <!--> Not necessary to declare inertia as the body is static<-->
+<!--
+      <inertial>
+        <mass>5513.1</mass>
+        <inertia>
+            <ixx>2175</ixx>
+            <ixy>-5.8</ixy>
+            <ixz>-2.4</ixz>
+            <iyy>1294</iyy>
+            <iyz>-2.16</iyz>
+            <izz>1471</izz>
+        </inertia>
+      </inertial>
+-->
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://Hotcell/meshes/Hotcell.dae</uri>
+<!--
+            models/Hotcell/meshes/
+            Hotcell.dae 
+            HotCell_ StorageCell.stl
+-->
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://Hotcell/meshes/Hotcell.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

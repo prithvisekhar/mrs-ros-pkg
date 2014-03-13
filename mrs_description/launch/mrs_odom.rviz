@@ -7,7 +7,7 @@ Panels:
         - /Global Options1
         - /Grid1
         - /RobotModel1
-        - /RobotModel1/Status1
+        - /RobotModel1/Links1
         - /TF1
       Splitter Ratio: 0.699605
     Tree Height: 797
@@ -56,12 +56,187 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
+        1_L1_j1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L1_j2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L1_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L1_w1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_gripper_pole:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_j1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_j2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_left_gripper:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_left_tip:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_right_gripper:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_right_tip:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L2_w1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L3_j1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L3_j2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L3_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L3_rad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L3_rad_pole:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1_L3_w1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         1_base_camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        1_base_laser_link:
+        2_L1_gripper_pole:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_j1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_j2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_left_gripper:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_left_tip:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_right_gripper:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_right_tip:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L1_w1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L2_j1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L2_j2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L2_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L2_w1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L3_j1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L3_j2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L3_j3_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        2_L3_w1_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -85,18 +260,85 @@ Visualization Manager:
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
+        L11_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L12_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L21_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L22_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L2_prismatic_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L31_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        L32_PCmodule:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
+        arm1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm2_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm2_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm3_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        arm3_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base1_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base1_link_support:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         base_imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_link_support:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -137,6 +379,35 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        link_hotcell:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_manipulator_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_manipulator_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        manipable_box:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -171,7 +442,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 122; 122; 122
-    Fixed Frame: base_footprint
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -192,17 +463,17 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.182
+      Distance: 7.86556
       Focal Point:
         X: -0.0343408
         Y: -1.55184
         Z: 0.0238013
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.545399
+      Pitch: 0.995399
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.39038
+      Yaw: 3.23036
     Saved: ~
 Window Geometry:
   Displays:

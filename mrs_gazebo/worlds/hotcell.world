@@ -8,8 +8,8 @@
       <uri>model://sun</uri>
     </include>
     <include>
-      <uri>model://Hotcell_Manipulator</uri>
-      <pose>-2.0 0 -0.2 0 0 0</pose>
+      <uri>model://Hotcell_with_manipulator</uri>
+      <pose>-2.0 0 -0.5 0 0 0</pose>
     </include>
   </world>
 </sdf>

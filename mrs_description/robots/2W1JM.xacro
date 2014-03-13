@@ -40,7 +40,7 @@
   <link name="${name}_dummy"/>
 
   
-  <xacro:pcm_module parent="${name}" prefix="${prefix}" instance="1" scale="${scale}" len="0.3" z="0.15" />
+  <xacro:pcm_module parent="${name}" prefix="${prefix}" instance="1" scale="${scale}" len="0.3" z="0.15" x="0" rotate="0"/>
      
 
   <xacro:joint_module parent="${name}" prefix="${prefix}" instance="1" scale="${scale}" rotate="0"/>

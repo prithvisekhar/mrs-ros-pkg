@@ -12,6 +12,74 @@
 
 
 
+<macro name="JM1_armconnect" params="name prefix instance parent"> 
+  <!-- Links -->
+  <create_link name="j1_link" color="Blue" mesh="${j1_mesh}"
+    cog="${j1_cog}" mass="${j1_mass}" instance="${instance}" prefix="${prefix}">
+    <j1_inertia /> 
+  </create_link>
+
+  <create_link_no_collision name="j2_link" color="Blue" mesh="${j2_mesh}"
+    cog="${j2_cog}" mass="${j2_mass}" instance="${instance}" prefix="${prefix}">
+    <j2_inertia /> 
+  </create_link_no_collision>
+  <create_link_no_collision name="j3_link" color="Blue" mesh="${j3_mesh}"
+    cog="${j3_cog}" mass="${j3_mass}" instance="${instance}" prefix="${prefix}">
+    <j3_inertia /> 
+  </create_link_no_collision>
+  <create_link name="w1_link" color="Blue" mesh="${w1_mesh}"
+    cog="${w1_cog}" mass="${w1_mass}" instance="${instance}" prefix="${prefix}">
+    <w1_inertia /> 
+  </create_link>
+
+  <!-- Joints -->
+
+  <joint name="${instance}_${prefix}_j3" type="continuous">
+    <child link="${instance}_${prefix}_w1_link" />
+    <parent link="${parent}" />
+    <axis xyz="0 0 1 " />
+    <origin xyz="0 0 0.01" rpy="${-pi/2} 0 0" />
+    <limit lower="${-pi/2}" upper="${pi/2}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+    <dynamics damping="${j3_damping}" />
+ </joint>
+  <joint name="${instance}_${prefix}_j2_fixed" type="fixed">
+    <child link="${instance}_${prefix}_j3_link" />
+    <parent link="${instance}_${prefix}_w1_link" />
+    <origin xyz="0.045 0 0" rpy="0 0 ${pi/2}" />
+  </joint>
+  
+  <joint name="${instance}_${prefix}_j2" type="revolute">
+    <child link="${instance}_${prefix}_j1_link" />
+    <parent link="${instance}_${prefix}_j3_link" />
+    <axis xyz="1 0 0 " />
+    <origin xyz="0 0 0" rpy="0 ${-pi/2} 0" />
+    <limit lower="${-pi/2}" upper="${pi/2}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+    <dynamics damping="${j2_damping}" />
+  </joint>
+  
+  <joint name="${instance}_${prefix}_j1" type="continuous">
+    <child link="${instance}_${prefix}_j2_link" />
+    <parent link="${instance}_${prefix}_j1_link" />
+    <axis xyz="0 0 1 " />
+    <origin xyz="0 -0.058 0" rpy="${pi/2} 0 0" />
+    <limit lower="${-pi/2}" upper="${pi/2}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+    <dynamics damping="${j3_damping}" />
+  </joint>
+  
+    <!-- Transmissions -->
+  <simple_transmission joint="${instance}_${prefix}_j1" />
+  <simple_transmission joint="${instance}_${prefix}_j2" />
+  <simple_transmission joint="${instance}_${prefix}_j3" />
+  
+    <!-- Gazebo  -->
+  <xacro:JMG name="${name}_gazebo" prefix="${prefix}" instance="${instance}" />
+  
+  </macro>
+  
+
 <macro name="JM1" params="name prefix instance parent"> 
   <!-- Links -->
   <create_link name="j1_link" color="Blue" mesh="${j1_mesh}"
@@ -34,16 +102,23 @@
 
   <!-- Joints -->
 
-  <joint name="${instance}_${prefix}_j3" type="fixed">
+<!--
+  <joint name="${instance}_${prefix}_j3" type="revolute">
     <child link="${instance}_${prefix}_w1_link" />
     <parent link="${parent}" />
     <axis xyz="0 0 1 " />
     <origin xyz="0 0 0.01" rpy="0 ${-pi/2} 0" />
-<!--
     <limit lower="${-pi/2}" upper="${pi/2}" effort="${max_effort}"
       velocity="${max_velocity}" />
     <dynamics damping="${j3_damping}" />
+ </joint>
 -->
+ 
+    <joint name="${instance}_${prefix}_j3" type="fixed">
+    <child link="${instance}_${prefix}_w1_link" />
+    <parent link="${parent}" />
+    <axis xyz="0 0 1 " />
+    <origin xyz="0 0 0.01" rpy="0 ${-pi/2} 0" />
   </joint>
 
   <joint name="${instance}_${prefix}_j2_fixed" type="fixed">
@@ -386,6 +461,69 @@
   </macro>
 
 
+
+<macro name="JM3" params="name prefix instance parent reflect shift"> 
+  <create_link name="j1_link" color="Blue" mesh="${j1_mesh}"
+    cog="${j1_cog}" mass="${j1_mass}" instance="${instance}" prefix="${prefix}">
+    <j1_inertia /> 
+  </create_link>
+
+  <create_link_no_collision name="j2_link" color="Blue" mesh="${j2_mesh}"
+    cog="${j2_cog}" mass="${j2_mass}" instance="${instance}" prefix="${prefix}">
+    <j2_inertia /> 
+  </create_link_no_collision>
+  <create_link_no_collision name="j3_link" color="Blue" mesh="${j3_mesh}"
+    cog="${j3_cog}" mass="${j3_mass}" instance="${instance}" prefix="${prefix}">
+    <j3_inertia /> 
+  </create_link_no_collision>
+  <create_link name="w1_link" color="Blue" mesh="${w1_mesh}"
+    cog="${w1_cog}" mass="${w1_mass}" instance="${instance}" prefix="${prefix}">
+    <w1_inertia /> 
+  </create_link>
+
+  <joint name="${instance}_${prefix}_j3" type="continuous">
+    <child link="${instance}_${prefix}_w1_link" />
+    <parent link="${instance}_${prefix}_j3_link" />
+    <axis xyz="1 0 0" />      
+    <origin xyz="0 0.05 0" rpy="0 0 ${-pi/2}" />
+  </joint>
+
+  <joint name="${instance}_${prefix}_j2" type="revolute">
+    <child link="${instance}_${prefix}_j3_link" />
+    <parent link="${instance}_${prefix}_j1_link" />
+    <axis xyz="0 0 1 " />   
+    <origin xyz="0 0 0" rpy="0 ${pi/2} 0" />
+    <limit lower="${-pi/2}" upper="${pi/2}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+    <dynamics damping="${j2_damping}" />
+  </joint>
+  
+  <joint name="${instance}_${prefix}_j2_fixed" type="fixed">
+    <child link="${instance}_${prefix}_j1_link" />
+    <parent link="${instance}_${prefix}_j2_link" />
+    <axis xyz="1 0 0 " />
+    <origin xyz="0 0 0.058" rpy="${pi/2} 0 ${pi/2}" />
+  </joint>
+  
+  <joint name="${instance}_${prefix}_j1" type="continuous">
+    <child link="${instance}_${prefix}_j2_link" />
+    <parent link="${parent}" />
+
+<!--
+    <axis xyz="1 0 0 " />
+-->
+    <origin xyz="${shift} 0 0" rpy="0 ${pi/2} 0" />
+  </joint>
+    <!-- Transmissions -->
+  <simple_transmission joint="${instance}_${prefix}_j1" />
+  <simple_transmission joint="${instance}_${prefix}_j2" />
+  <simple_transmission joint="${instance}_${prefix}_j3" />
+
+  
+  <!-- Gazebo  -->
+  <xacro:JMG name="${name}_gazebo" prefix="${prefix}" instance="${instance}" />
+  </macro>  
+
 <macro name="JM3_solid" params="name prefix instance parent reflect shift"> 
   <create_link name="j1_link" color="Blue" mesh="${j1_mesh}"
     cog="${j1_cog}" mass="${j1_mass}" instance="${instance}" prefix="${prefix}">
@@ -451,4 +589,5 @@
   <!-- Gazebo  -->
   <xacro:JMG name="${name}_gazebo" prefix="${prefix}" instance="${instance}" />
   </macro>  
+
 </robot>

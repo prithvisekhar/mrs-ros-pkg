@@ -132,6 +132,7 @@ THe Hotcell import
     <parent link="link_hotcell"/>
   </joint>
   <!-- inspection robot-->
+<!--
     <link name="robot2" />
     
 <joint name="fixed_robot2_joint" type="fixed">
@@ -143,7 +144,6 @@ THe Hotcell import
     <joint name="fixed_robot2_world_joint" type="fixed">
         <axis xyz="1 0 0 " />
         <origin xyz="0 0 0.05" rpy="0 ${-pi/2} 0" />
-        <!-- <origin xyz="0 0 0.1" rpy="0 0 0" /> -->
         <parent link="robot2" />
         <child link="robot2_world_footprint" />
     </joint>
@@ -163,6 +163,7 @@ THe Hotcell import
   <xacro:JM3 name="JM1" prefix="W1" instance="2"  parent="W2_PCmodule" reflect="-1" shift="0.035"/>
   <xacro:SMRadprobe parent="W3_PCmodule" prefix="W4" reflect="0" instance="1" />
   
+-->
   <!-- foot for arm-->
   
     <link name="robot1" >
@@ -184,16 +185,7 @@ THe Hotcell import
 <xacro:Camera parent="${name}_link_support" prefix="base" x="-0.15" y="0" z="0.27" instance="3" />
 <xacro:Camera parent="${name}_link_support" prefix="base" x="0" y="-0.15" z="0.27" instance="4" />
 -->
-        
-<!--
-    leg 1 - parent {instance}_${prefix}_camera_link
--->
-<!--
-    <xacro:JM1_armconnect name="JM" prefix="L1" instance="1"  parent="1_base_camera_link" />
-    <xacro:PcModule parent="1_L1_j2_link" prefix="L1" instance="1" />
-    <xacro:PcModule parent="L1_PCmodule" prefix="L12" instance="2" />
-    <xacro:JM2 name="JM1" prefix="L1" instance="2"  parent="L12_PCmodule" reflect="0" shift="0.035" shift2="1"/>
--->
+
 <!--
           Create the orientation joint
           
@@ -223,12 +215,9 @@ ARM 1
     <xacro:PcModule parent="1_L2_j2_link" prefix="L21" instance="1" />
     <xacro:PcModule_Prismatic_arm parent="L22_PCmodule" prefix="L2_prismatic" reflect="1" shift="0.07"/>
     <xacro:JM2 name="JM1" prefix="L2" instance="2"  parent="L2_prismatic_PCmodule" reflect="1" shift="0.035" shift2="0"/>
-<!--
-    <xacro:SMRadprobe parent="2_L2_w1_link" prefix="L1" reflect="0" instance="1" /> 
--->
-<!--
-    <xacro:SMHand parent="2_L2_w1_link" prefix="L2" reflect="0" instance="1"/>
--->
+
+    <xacro:SMHand parent="2_L2_w1_link" prefix="L2" reflect="1" instance="1"/>
+
 <!--
 ARM 2
 -->
@@ -238,27 +227,72 @@ ARM 2
     <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
     <child link="arm2"/>
     <parent link="4_base_camera_link"/>
-     <limit lower="0" upper="-3" effort="${max_effort}"
+     <limit lower="${-pi}" upper="${pi}" effort="${max_effort}"
       velocity="${max_velocity}" />
   </joint> 
   <link name="arm2_1" />
   <joint name="arm22_joint" type="revolute">
-    <origin xyz="0 0 0" rpy="0 0 ${-pi/2}"/>
+    <origin xyz="0 0 0" rpy="0 0 ${pi/2}"/>
     <child link="arm2_1"/>
     <parent link="arm2"/>
      <limit lower="${-pi}" upper="${pi}" effort="${max_effort}"
       velocity="${max_velocity}" />
   </joint> 
+    <link name="arm2_2" />
+  <joint name="arm23_joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+    <child link="arm2_2"/>
+    <parent link="arm2_1"/>
+     <limit lower="${-pi}" upper="${pi}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+  </joint> 
   
-    <xacro:JM1 name="JM" prefix="L1" instance="1"  parent="arm2_1" />
+    <xacro:JM1 name="JM" prefix="L1" instance="1"  parent="arm2_2" />
     <xacro:PcModule parent="L11_PCmodule" prefix="L12" instance="2" />
     <xacro:PcModule parent="1_L1_j2_link" prefix="L11" instance="1" />
     <xacro:JM2 name="JM1" prefix="L1" instance="2"  parent="L12_PCmodule" reflect="0" shift="0.035" shift2="1"/>
-<!--
-
--->
+    <xacro:SMHand parent="2_L1_w1_link" prefix="L1" reflect="1" instance="2"/>
 <!--
  <xacro:SMRadprobe parent="2_L1_w1_link" prefix="L1" reflect="0" instance="1" /> 
+-->
+
+        
+<!--
+    ARM3 - parent {instance}_${prefix}_camera_link
+-->
+        <link name="arm3" />
+    
+<joint name="arm3_joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+    <child link="arm3"/>
+    <parent link="1_base_camera_link"/>
+     <limit lower="${-pi}" upper="${pi}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+  </joint> 
+  <link name="arm3_1" />
+  <joint name="arm32_joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 ${pi/2}"/>
+    <child link="arm3_1"/>
+    <parent link="arm3"/>
+     <limit lower="${-pi}" upper="${pi}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+  </joint> 
+    <link name="arm3_2" />
+  <joint name="arm33_joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+    <child link="arm3_2"/>
+    <parent link="arm3_1"/>
+     <limit lower="${-pi}" upper="${pi}" effort="${max_effort}"
+      velocity="${max_velocity}" />
+  </joint> 
+  
+    <xacro:JM1 name="JM" prefix="L3" instance="1"  parent="arm3_2" />
+    <xacro:PcModule parent="L31_PCmodule" prefix="L32" instance="2" />
+    <xacro:PcModule parent="1_L3_j2_link" prefix="L31" instance="1" />
+    <xacro:JM2 name="JM1" prefix="L3" instance="2"  parent="L32_PCmodule" reflect="0" shift="0.035" shift2="1"/>
+     <xacro:SMRadprobe parent="2_L3_w1_link" prefix="L3" reflect="0" instance="1" /> 
+<!--
+    <xacro:SMHand parent="2_L3_w1_link" prefix="L3" reflect="1" instance="3"/>
 -->
 
   <gazebo>
@@ -278,3 +312,4 @@ ARM 2
 
   
 </robot>
+

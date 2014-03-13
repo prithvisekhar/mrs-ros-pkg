@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<robot name="mrs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Constants for robot -->
+  <xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find mrs_description)/urdf/power_base/ball_bearing.urdf.xacro" />
+  <xacro:include filename="$(find mrs_description)/urdf/JM/jm.xacro" />
+  <xacro:include filename="$(find mrs_description)/urdf/PCM/pcm.xacro" />
+
+
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world" >
+    <inertial>
+        <mass value="0.1"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="Red"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+  <joint name="fixed" type="fixed">
+    <axis xyz="1 0 0 " />
+    <origin xyz="0 0 0.05" rpy="0 ${-pi/2} 0" />
+    <!-- <origin xyz="0 0 0.1" rpy="0 0 0" /> -->
+    <parent link="world" />
+    <child link="base_footprint" />
+  </joint>
+
+  <!-- Fictitious Base Link is a fictitious link(frame) that is on the ground below 
+    base_link origin, Dummy link--> 
+  
+  <link name="base_footprint">
+      <mass value="1.0" />
+      <visual>
+        <geometry>
+          <box size="0.07 0.07 0.14" />
+        </geometry>
+        <material name="Blue">
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.05 0.05 0.04" />
+        </geometry>
+      </collision>
+      <xacro:default_inertial mass="0.15" I_tensor="8.166e-4"/>
+  </link>
+      <gazebo reference="base_footprint">
+    <material>Gazebo/Blue</material>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <link name="link_hotcell">
+        <!--> Not necessary to declare inertia as the body is static<-->
+      <collision name="collision_hotcell">
+<!--
+        <pose>0 0 0.05 0 0 0</pose>
+-->
+        <geometry>
+            <mesh filename="package://mrs_gazebo/models/Hotcell/meshes/Hotcell.dae" scale="5.0 5.0 5.0"/>
+        </geometry>
+      </collision>
+      <visual name="visual_hotcell">
+<!--
+        <pose>0 0 0.05 0 0 0</pose>
+-->
+        <geometry>
+           <mesh filename="package://mrs_gazebo/models/Hotcell/meshes/Hotcell.dae" scale="5.0 5.0 5.0"/>
+        </geometry>
+      </visual>
+    </link>
+    <link name="link_manipulator_1">
+        <!--> Not necessary to declare inertia as the body is static<-->
+
+      <collision name="collision_man1">
+
+        <geometry>
+           <mesh filename="package://mrs_gazebo/models/MT200_nuc_manipulator/meshes/Manipulator.dae" scale="0.50 0.5 0.5"/>
+        </geometry>
+      </collision>
+      <visual name="visual_man1">
+        <geometry>
+           <mesh filename="package://mrs_gazebo/models/MT200_nuc_manipulator/meshes/Manipulator.dae" scale="0.50 0.5 0.5"/>
+        </geometry>
+      </visual>
+    </link>
+     <link name="link_manipulator_2">
+        <!--> Not necessary to declare inertia as the body is static<-->
+
+      <collision name="collision_man2">
+        <geometry>
+           <mesh filename="package://mrs_gazebo/models/MT200_nuc_manipulator/meshes/Manipulator.dae" scale="0.50 0.5 0.5"/>
+        </geometry>
+      </collision>
+      <visual name="visual_man2">
+        <geometry>
+           <mesh filename="package://mrs_gazebo/models/MT200_nuc_manipulator/meshes/Manipulator.dae" scale="0.50 0.5 0.5"/>
+        </geometry>
+      </visual>
+    </link>   
+        
+    <link name="manipable_box">
+
+      <collision name="box_coll">
+        <geometry>
+          <box size="0.9 0.60 0.3"/>
+        </geometry>
+      </collision>
+      <visual name="box_visual">
+        <geometry>
+            <box size="0.9 0.60 0.3"/>
+        </geometry>
+              <material name="red"/>
+      </visual>
+    </link>
+<joint name="fixed_hotcell_joint" type="fixed">
+    <origin xyz="0 0.05 0" rpy="0 0 0"/>
+    <child link="link_hotcell"/>
+    <parent link="world"/>
+  </joint>
+    <joint name="fixed_manipulator_joint1" type="fixed">
+    <origin xyz="-2.26 -0.15 0.69" rpy="0 0 0"/>
+    <child link="link_manipulator_1"/>
+    <parent link="link_hotcell"/>
+  </joint>
+<joint name="fixed_manipulator_joint2" type="fixed">
+    <origin xyz="-2.65 -0.15 0.69" rpy="0 0 0"/>
+    <child link="link_manipulator_2"/>
+    <parent link="link_hotcell"/>
+  </joint>
+   <joint name="fixed_maniBox_joint1" type="fixed">
+    <origin xyz="-2.2 -1.05 1.25" rpy="0 0 0"/>
+    <child link="manipable_box"/>
+    <parent link="link_hotcell"/>
+  </joint>
+  
+</robot>

@@ -1,17 +1,12 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-<xacro:include filename="$(find mrs_description)/urdf/power_base/ball_bearing.urdf.xacro" />
-    <!-- constants for robot -->
-<xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
-  <!-- simplified box collision geometry for base -->
-<xacro:include filename="$(find 
-mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
+
   <property name="mass" value="22.0"/>
   <property name="p_baselen" value=".3" />
   <property name="p_basewidth" value=".3" />
-  <property name="p_baseheight" value=".6" />
+  <property name="p_baseheight" value=".3" />
 
-  <xacro:macro name="power_base" params="name">
+  <xacro:macro name="power_base" params="name parent">
   <link name="${name}_footprint">
     <inertial>
       <mass value="0.1"/>
@@ -19,7 +14,7 @@ mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-2.2 0 0" rpy="0 0 0"/>
       <geometry>
         <box size="0.001 0.001 0.001"/>
       </geometry>
@@ -32,7 +27,11 @@ mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
       </geometry>
     </collision>
   </link>
-
+  <joint name="${name}_footprint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <child link="${name}_footprint"/>
+    <parent link="${parent}"/>
+  </joint>
   <joint name="${name}_footprint_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <child link="${name}_link_support"/>
@@ -84,25 +83,27 @@ mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
         <box size="${p_baselen-0.1} ${p_basewidth-0.05} ${p_baseheight-0.05}" />
       </geometry>
     </collision>
-    <xacro:default_inertial mass="2" />
+    <xacro:default_inertial mass="2" I_tensor="1"/>
   </link>
 
   <gazebo reference="${name}_link_support">
     <material>Gazebo/Orange</material>
   </gazebo>
 
-<xacro:Ball_bearing mass="0.1" instance="1" dia="0.05" x="0.05" y="0.05" z="-0.29" parent="${name}_link_support"/>
-<xacro:Ball_bearing mass="0.1" instance="2" dia="0.05" x="-0.05" y="0.05" z="-0.29" parent="${name}_link_support"/>
-<xacro:Ball_bearing mass="0.1" instance="3" dia="0.05" x="0.05" y="-0.05" z="-0.29" parent="${name}_link_support"/>
-<xacro:Ball_bearing mass="0.1" instance="4" dia="0.05" x="-0.05" y="-0.05" z="-0.29" parent="${name}_link_support"/>
+<xacro:Ball_bearing mass="0.1" instance="1" dia="0.1" x="0.075" y="0.075" z="-0.12" parent="${name}_link_support"/>
+<xacro:Ball_bearing mass="0.1" instance="2" dia="0.1" x="-0.075" y="0.075" z="-0.12" parent="${name}_link_support"/>
+<xacro:Ball_bearing mass="0.1" instance="3" dia="0.1" x="0.075" y="-0.075" z="-0.12" parent="${name}_link_support"/>
+<xacro:Ball_bearing mass="0.1" instance="4" dia="0.1" x="-0.075" y="-0.075" z="-0.12" parent="${name}_link_support"/>
 
 
-<xacro:Camera parent="${name}_link_support" prefix="base" x="0.15" y="0" z="0.27" instance="1" />
-<xacro:Camera parent="${name}_link_support" prefix="base" x="0" y="0.15" z="0.27" instance="2" />
-<xacro:Camera parent="${name}_link_support" prefix="base" x="-0.15" y="0" z="0.27" instance="3" />
-<xacro:Camera parent="${name}_link_support" prefix="base" x="0" y="-0.15" z="0.27" instance="4" />
+<xacro:Camera parent="${name}_link_support" prefix="base" x="0.15" y="0" z="0.15" instance="1" />
+<xacro:Camera parent="${name}_link_support" prefix="base" x="0" y="0.15" z="0.15" instance="2" />
+<xacro:Camera parent="${name}_link_support" prefix="base" x="-0.15" y="0" z="0.15" instance="3" />
+<xacro:Camera parent="${name}_link_support" prefix="base" x="0" y="-0.15" z="0.15" instance="4" />
 
+<!--
 <xacro:Laser parent="${name}_link_support" prefix="base" x="0" y="0" z="0.31" instance="1" />
+-->
 
 
 <xacro:IMU parent="${name}_link_support" prefix="base" x="0.1" y="0.1" z="0.31"  />

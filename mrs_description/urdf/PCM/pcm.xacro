@@ -96,6 +96,7 @@
     <!-- Gazebo  -->
     <xacro:PCMG name="${prefix}_pcm_gazebo" prefix="${prefix}" instance="${reflect}" />
     </xacro:macro>
+    
         
     <xacro:macro name="PcModule_Prismatic_arm" params="parent prefix reflect shift">
         <link name="${prefix}_PCmodule">

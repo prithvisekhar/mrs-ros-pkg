@@ -5,6 +5,7 @@
     <xacro:include filename="$(find mrs_description)/urdf/common_mrs.xacro" />
     <!-- Import all Gazebo-customization elements, including Gazebo colors -->
     <xacro:include filename="$(find mrs_description)/urdf/power_base/ball_bearing.urdf.xacro" />
+    <xacro:include filename="$(find mrs_description)/urdf/power_base/sm_other.urdf.xacro" />
     <xacro:include filename="$(find mrs_description)/urdf/JM/jm.xacro" />
     <xacro:include filename="$(find mrs_description)/urdf/PCM/pcm.xacro" />
 
@@ -61,12 +62,14 @@
         <material>Gazebo/Blue</material>
         <selfCollide>false</selfCollide>
     </gazebo>
-    <xacro:JM3_solid name="JM" prefix="W1" instance="1"  parent="W1_PCmodule" reflect="1" shift="0.035"/>
-    <xacro:PcModule_Prismatic parent="base_footprint" prefix="W1" reflect="-1" />
 
-    <xacro:PcModule_Prismatic parent="base_footprint" prefix="W2" reflect="1" />
-    <xacro:JM3_solid name="JM1" prefix="W1" instance="2"  parent="W2_PCmodule" reflect="-1" shift="0.035"/>
-
+  <xacro:PcModule_Prismatic parent="world" prefix="W3" reflect="3" />
+  <xacro:JM3_solid name="JM" prefix="W1" instance="1"  parent="W1_PCmodule" reflect="1" shift="0.035"/>
+  <xacro:PcModule_solid parent="base_footprint" prefix="W1" reflect="-1" />
+  <xacro:PcModule_solid parent="base_footprint" prefix="W2" reflect="1" />
+  <xacro:JM3_solid name="JM1" prefix="W1" instance="2"  parent="W2_PCmodule" reflect="-1" shift="0.035"/>
+  
+  <xacro:SMRadprobe parent="W3_PCmodule" prefix="W4" reflect="0" instance="1" />
 <!--
     <xacro:Ball_bearing mass="0.1" instance="1" dia="0.05" x="-0.035" y="0" z="0.035" parent="base_footprint"/>
     <xacro:Ball_bearing mass="0.1" instance="2" dia="0.05" x="-0.035" y="0" z="0.070" parent="base_footprint"/>

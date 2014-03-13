@@ -1,13 +1,7 @@
 <launch>
     <!-- send robots urdfs to param server -->
-    <param name="robot_description" 
-     command="$(find xacro)/xacro.py '$(find mrs_description)/robots/power_base_pic2.xacro'" />
-<!--
-    textfile="$(find mrs_description)/urdf/youbot.urdf" />
--->
-<!--
-        textfile="$(arg model)" />
--->
+    <param name="robot_description"
+        command="$(find xacro)/xacro.py '$(find mrs_description)/robots/W2M_prismatic_type2.xacro'" />
 
     <!-- send fake joint values -->
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
@@ -18,6 +12,6 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
     <!-- Show in Rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find mrs_description)/launch/mrs_odom.rviz"/> 
+    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find mrs_description)/launch/mrs.rviz"/> 
 
 </launch>
